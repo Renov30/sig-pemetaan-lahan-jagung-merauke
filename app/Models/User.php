@@ -7,6 +7,7 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -35,6 +36,7 @@ class User extends Authenticatable implements FilamentUser
         'tempat_lahir',
         'tgl_lahir',
         'pekerjaan',
+        'distrik_id',
     ];
 
     /**
@@ -58,5 +60,13 @@ class User extends Authenticatable implements FilamentUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the distrik that the user belongs to.
+     */
+    public function distrik(): BelongsTo
+    {
+        return $this->belongsTo(Distrik::class);
     }
 }

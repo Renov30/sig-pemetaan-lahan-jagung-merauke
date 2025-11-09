@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\Distrik;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -47,12 +48,13 @@ class UserResource extends Resource
                 TextInput::make('password')
                     ->label('Password')
                     ->autocomplete('new-password')
-                    ->required()
-                    ->helperText('Minimal 6 karakter')
+                    ->required(fn ($livewire) => $livewire instanceof \App\Filament\Resources\UserResource\Pages\CreateUser)
+                    ->helperText(fn ($livewire) => $livewire instanceof \App\Filament\Resources\UserResource\Pages\CreateUser ? 'Minimal 6 karakter' : 'Kosongkan jika tidak ingin mengubah password')
                     ->minLength(6)
                     ->maxLength(255)
                     ->password()
-                    ->revealable(),
+                    ->revealable()
+                    ->dehydrated(fn ($livewire, $state) => $livewire instanceof \App\Filament\Resources\UserResource\Pages\CreateUser || !empty($state)),
                 TextInput::make('no_hp')
                     ->required()
                     ->label('No. Hp')
@@ -77,7 +79,42 @@ class UserResource extends Resource
                 Select::make('roles')
                     ->label('Role')
                     ->required()
-                    ->relationship('roles', 'name'),
+                    ->relationship('roles', 'name')
+                    ->multiple(false)
+                    ->preload()
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        // Jika role bukan gapoktan, hapus distrik_id
+                        if (is_array($state)) {
+                            $hasGapoktan = in_array('gapoktan', $state);
+                        } else {
+                            $hasGapoktan = $state === 'gapoktan' || (is_array($state) && in_array('gapoktan', $state));
+                        }
+                        
+                        if (!$hasGapoktan) {
+                            $set('distrik_id', null);
+                        }
+                    }),
+                Select::make('distrik_id')
+                    ->label('Distrik')
+                    ->relationship('distrik', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->visible(function ($get) {
+                        $roles = $get('roles');
+                        if (is_array($roles)) {
+                            return in_array('gapoktan', $roles);
+                        }
+                        return $roles === 'gapoktan';
+                    })
+                    ->required(function ($get) {
+                        $roles = $get('roles');
+                        if (is_array($roles)) {
+                            return in_array('gapoktan', $roles);
+                        }
+                        return $roles === 'gapoktan';
+                    })
+                    ->helperText('Hanya untuk akun dengan role Gapoktan. Pilih distrik yang akan ditugaskan ke akun ini.'),
             ]);
     }
 
@@ -111,8 +148,15 @@ class UserResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('roles.name')
+                    ->label('Role')
                     ->sortable()
                     ->searchable(),
+                TextColumn::make('distrik.name')
+                    ->label('Distrik')
+                    ->sortable()
+                    ->searchable()
+                    ->placeholder('Tidak ada distrik')
+                    ->default('Tidak ada distrik'),
             ])
             ->filters([
                 // Tables\Filters\TrashedFilter::make(),
