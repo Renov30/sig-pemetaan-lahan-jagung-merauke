@@ -53,7 +53,26 @@ class LahanResource extends Resource
                 Select::make('distrik_id')
                     ->label('Distrik')
                     ->required()
-                    ->relationship('distrik', 'name'),
+                    ->relationship('distrik', 'name', function ($query) {
+                        // Filter distrik berdasarkan user yang login (jika gapoktan)
+                        if (auth()->check() && auth()->user()->hasRole('gapoktan')) {
+                            $user = auth()->user();
+                            if ($user->distrik_id) {
+                                $query->where('id', $user->distrik_id);
+                            } else {
+                                // Jika gapoktan tidak punya distrik, tampilkan kosong
+                                $query->whereRaw('1 = 0');
+                            }
+                        }
+                    })
+                    ->default(function () {
+                        // Set default distrik untuk gapoktan
+                        if (auth()->check() && auth()->user()->hasRole('gapoktan')) {
+                            return auth()->user()->distrik_id;
+                        }
+                        return null;
+                    })
+                    ->disabled(fn () => auth()->check() && auth()->user()->hasRole('gapoktan')),
                 TextInput::make('alamat')
                     ->required()
                     ->maxLength(255),
@@ -142,9 +161,22 @@ class LahanResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
+        $query = parent::getEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+
+        // Filter untuk user gapoktan: hanya tampilkan lahan dari distrik mereka
+        if (auth()->check() && auth()->user()->hasRole('gapoktan')) {
+            $user = auth()->user();
+            if ($user->distrik_id) {
+                $query->where('distrik_id', $user->distrik_id);
+            } else {
+                // Jika gapoktan tidak punya distrik, tampilkan kosong
+                $query->whereRaw('1 = 0');
+            }
+        }
+
+        return $query;
     }
 }

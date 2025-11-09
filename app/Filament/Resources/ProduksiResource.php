@@ -41,7 +41,18 @@ class ProduksiResource extends Resource
                 Select::make('lahan_id')
                     ->label('Lahan')
                     ->required()
-                    ->relationship('lahan', 'name')
+                    ->relationship('lahan', 'name', function ($query) {
+                        // Filter lahan berdasarkan distrik user yang login (jika gapoktan)
+                        if (auth()->check() && auth()->user()->hasRole('gapoktan')) {
+                            $user = auth()->user();
+                            if ($user->distrik_id) {
+                                $query->where('distrik_id', $user->distrik_id);
+                            } else {
+                                // Jika gapoktan tidak punya distrik, tampilkan kosong
+                                $query->whereRaw('1 = 0');
+                            }
+                        }
+                    })
                     ->preload(),
                 DatePicker::make('tanggal_produksi')
                     ->label('Tanggal Produksi')
@@ -108,9 +119,24 @@ class ProduksiResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
+        $query = parent::getEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+
+        // Filter untuk user gapoktan: hanya tampilkan produksi dari lahan di distrik mereka
+        if (auth()->check() && auth()->user()->hasRole('gapoktan')) {
+            $user = auth()->user();
+            if ($user->distrik_id) {
+                $query->whereHas('lahan', function ($q) use ($user) {
+                    $q->where('distrik_id', $user->distrik_id);
+                });
+            } else {
+                // Jika gapoktan tidak punya distrik, tampilkan kosong
+                $query->whereRaw('1 = 0');
+            }
+        }
+
+        return $query;
     }
 }
