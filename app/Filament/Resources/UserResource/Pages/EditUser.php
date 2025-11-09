@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
+use App\Models\Role;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Facades\Hash;
@@ -20,6 +21,16 @@ class EditUser extends EditRecord
         ];
     }
 
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        // Pastikan roles dimuat dengan benar
+        $user = $this->record;
+        if ($user && $user->roles) {
+            $data['roles'] = $user->roles->first()?->id;
+        }
+        return $data;
+    }
+
     protected function mutateFormDataBeforeSave(array $data): array
     {
         // Hash password jika diubah
@@ -31,14 +42,12 @@ class EditUser extends EditRecord
         }
 
         // Jika role bukan gapoktan, set distrik_id menjadi null
-        $roles = $data['roles'] ?? [];
-        if (is_array($roles)) {
-            $hasGapoktan = in_array('gapoktan', $roles);
-        } else {
-            $hasGapoktan = $roles === 'gapoktan';
-        }
-
-        if (!$hasGapoktan) {
+        $gapoktanRole = Role::where('name', 'gapoktan')->first();
+        $gapoktanRoleId = $gapoktanRole ? $gapoktanRole->id : null;
+        
+        $roleId = $data['roles'] ?? null;
+        
+        if ($gapoktanRoleId && $roleId != $gapoktanRoleId) {
             $data['distrik_id'] = null;
         }
 

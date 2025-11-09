@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\Distrik;
+use App\Models\Role;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -33,6 +34,10 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
+        // Ambil ID role gapoktan
+        $gapoktanRole = Role::where('name', 'gapoktan')->first();
+        $gapoktanRoleId = $gapoktanRole ? $gapoktanRole->id : null;
+
         return $form
             ->schema([
                 //
@@ -48,13 +53,13 @@ class UserResource extends Resource
                 TextInput::make('password')
                     ->label('Password')
                     ->autocomplete('new-password')
-                    ->required(fn ($livewire) => $livewire instanceof \App\Filament\Resources\UserResource\Pages\CreateUser)
-                    ->helperText(fn ($livewire) => $livewire instanceof \App\Filament\Resources\UserResource\Pages\CreateUser ? 'Minimal 6 karakter' : 'Kosongkan jika tidak ingin mengubah password')
+                    ->required(fn($livewire) => $livewire instanceof \App\Filament\Resources\UserResource\Pages\CreateUser)
+                    ->helperText(fn($livewire) => $livewire instanceof \App\Filament\Resources\UserResource\Pages\CreateUser ? 'Minimal 6 karakter' : 'Kosongkan jika tidak ingin mengubah password')
                     ->minLength(6)
                     ->maxLength(255)
                     ->password()
                     ->revealable()
-                    ->dehydrated(fn ($livewire, $state) => $livewire instanceof \App\Filament\Resources\UserResource\Pages\CreateUser || !empty($state)),
+                    ->dehydrated(fn($livewire, $state) => $livewire instanceof \App\Filament\Resources\UserResource\Pages\CreateUser || !empty($state)),
                 TextInput::make('no_hp')
                     ->required()
                     ->label('No. Hp')
@@ -82,16 +87,10 @@ class UserResource extends Resource
                     ->relationship('roles', 'name')
                     ->multiple(false)
                     ->preload()
-                    ->reactive()
-                    ->afterStateUpdated(function ($state, callable $set) {
+                    ->live(onBlur: false)
+                    ->afterStateUpdated(function ($state, callable $set) use ($gapoktanRoleId) {
                         // Jika role bukan gapoktan, hapus distrik_id
-                        if (is_array($state)) {
-                            $hasGapoktan = in_array('gapoktan', $state);
-                        } else {
-                            $hasGapoktan = $state === 'gapoktan' || (is_array($state) && in_array('gapoktan', $state));
-                        }
-                        
-                        if (!$hasGapoktan) {
+                        if ($gapoktanRoleId && $state != $gapoktanRoleId) {
                             $set('distrik_id', null);
                         }
                     }),
@@ -100,19 +99,27 @@ class UserResource extends Resource
                     ->relationship('distrik', 'name')
                     ->searchable()
                     ->preload()
-                    ->visible(function ($get) {
-                        $roles = $get('roles');
-                        if (is_array($roles)) {
-                            return in_array('gapoktan', $roles);
+                    ->visible(function ($get) use ($gapoktanRoleId) {
+                        if (!$gapoktanRoleId) {
+                            return false;
                         }
-                        return $roles === 'gapoktan';
+                        $roleId = $get('roles');
+                        // Handle jika roleId adalah array (multiple roles)
+                        if (is_array($roleId)) {
+                            return in_array($gapoktanRoleId, $roleId);
+                        }
+                        return $roleId == $gapoktanRoleId;
                     })
-                    ->required(function ($get) {
-                        $roles = $get('roles');
-                        if (is_array($roles)) {
-                            return in_array('gapoktan', $roles);
+                    ->required(function ($get) use ($gapoktanRoleId) {
+                        if (!$gapoktanRoleId) {
+                            return false;
                         }
-                        return $roles === 'gapoktan';
+                        $roleId = $get('roles');
+                        // Handle jika roleId adalah array (multiple roles)
+                        if (is_array($roleId)) {
+                            return in_array($gapoktanRoleId, $roleId);
+                        }
+                        return $roleId == $gapoktanRoleId;
                     })
                     ->helperText('Hanya untuk akun dengan role Gapoktan. Pilih distrik yang akan ditugaskan ke akun ini.'),
             ]);
