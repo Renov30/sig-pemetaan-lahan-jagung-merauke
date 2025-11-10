@@ -378,7 +378,7 @@ a:visited {
 footer {
     background-color: var(--bg);
     text-align: left;
-    padding: 1rem 12% 3rem;
+    padding: 1rem 7% 3rem;
     margin-top: 3rem;
     border-top: 1px solid var(--primary);
 }
@@ -388,11 +388,13 @@ footer .kontak {
 
 footer .kontak h5 {
     margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
 }
 
 footer .kontak p {
     display: flex;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 400;
     line-height: 1.6rem;
     margin-bottom: 1rem;
@@ -433,7 +435,7 @@ footer .links a {
 }
 
 footer .credit {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 footer .credit a {
