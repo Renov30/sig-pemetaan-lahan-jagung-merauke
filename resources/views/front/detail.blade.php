@@ -1,219 +1,918 @@
 @extends('front.layouts.app')
-@section('title', 'Detail')
+@section('title', 'Detail Lahan')
 @section('content')
-    <body>
-        <x-nav/>
-        <!-- content section start -->
-        <section class="detail">
-            <h2>Detail Lahan</h2>
-            <div class="row">
-                <div id="map"></div>
-                <script>
-                    var activeInfoWindow = null; 
+    <x-nav/>
+    
+    <!-- Modern Hero Section -->
+    <section class="detail-hero-modern">
+        <div class="detail-hero-overlay"></div>
+        <div class="detail-hero-content">
+            <div class="detail-hero-text">
+                <h1 class="detail-hero-title">
+                    Detail <span class="text-gradient">Lahan</span>
+                </h1>
+                <p class="detail-hero-description">
+                    Informasi lengkap mengenai lahan jagung di Kabupaten Merauke
+                </p>
+            </div>
+        </div>
+    </section>
 
-                    function initMap() {
-                        var lahan = {
-                            name: "{{ $lahan->name }}",
-                            alamat: "{{ $lahan->alamat }}",
-                            slug: "{{ $lahan->slug }}",
-                            latitude: {{ $lahan->latitude }},
-                            longitude: {{ $lahan->longitude }}
-                        };
+    <!-- Detail Section -->
+    <section class="detail-modern">
+        <div class="container">
+            <!-- Main Content Grid -->
+            <div class="detail-grid">
+                <!-- Left Column: Map -->
+                <div class="detail-map-section">
+                    <div class="detail-card-modern">
+                        <div class="detail-card-header">
+                            <h3>
+                                <i data-feather="map"></i>
+                                Lokasi Lahan
+                            </h3>
+                        </div>
+                        <div class="map-container-detail">
+                            <div id="map" class="map-detail"></div>
+                        </div>
+                    </div>
+                </div>
 
-                        var lokasi = { lat: lahan.latitude, lng: lahan.longitude };
-
-                        var map = new google.maps.Map(document.getElementById("map"), {
-                            zoom: 15,
-                            center: lokasi,
-                        });
-
-                        var marker = new google.maps.Marker({
-                            position: lokasi,
-                            map: map,
-                            title: lahan.name,
-                            icon: {
-                                url: "{{ asset('img/corn-cob.png') }}", 
-                                scaledSize: new google.maps.Size(30, 30),
-                            } 
-                        });
-
-                        
-                        var contentString =
-                            '<div class="card-google-map">' +
-                                '<h5 class="card-title-google-map">' + lahan.name + '</h5>' +
-                                '<p class="card-text-google-map">' + lahan.alamat + '</p>' +
-                                '<a href="https://www.google.com/maps?q=' + lahan.latitude + ',' + lahan.longitude + '" target="_blank" class="card-button-google-map">Lihat di Google Maps</a>' +
-                            '</div>';
-
-                        var infowindow = new google.maps.InfoWindow({
-                            content: contentString
-                        });
-
-                        marker.addListener('click', function() {
-                            if (activeInfoWindow) {
-                                activeInfoWindow.close();
-                            }
-                            infowindow.open(map, marker);
-                            activeInfoWindow = infowindow;
-                        });
-
-                        google.maps.event.addListener(map, 'click', function() {
-                            if (activeInfoWindow) {
-                                activeInfoWindow.close();
-                                activeInfoWindow = null;
-                            }
-                        });
-                    }
-
-                </script>
-
-                <div class="teks">
-                    <table>
-                        <tr>
-                            <td>Nama Lahan</td>
-                            <td>:</td>
-                            <td>{{$lahan->name}}</td>
-                        </tr>
-                        <tr>
-                            <td>Nama Petani</td>
-                            <td>:</td>
-                            <td>{{$lahan->nama_petani}}</td>
-                        </tr>
-                        {{-- <tr>
-                            <td>Hasil Produksi</td>
-                            <td>:</td>
-                            <td>{{$lahan->produksi()->latest()->first()?->hasil_produksi ?? 'Belum ada data'}}</td>
-                        </tr> --}}
-                        <tr>
-                            <td>Luas Lahan</td>
-                            <td>:</td>
-                            <td>{{$lahan->luas_lahan}} hektar</td>
-                        </tr>
-                        <tr>
-                            <td>Distrik</td>
-                            <td>:</td>
-                            <td>{{$lahan->distrik->name}}</td>
-                        </tr>
-                        <tr>
-                            <td>Alamat</td>
-                            <td>:</td>
-                            <td>{{$lahan->alamat}}</td>
-                        </tr>
-                        <tr>
-                            <td>No. Hp</td>
-                            <td>:</td>
-                            <td>{{$lahan->no_hp}}</td>
-                        </tr>
-                        <tr>
-                            <td>Latitude</td>
-                            <td>:</td>
-                            <td>{{$lahan->latitude}}</td>
-                        </tr>
-                        <tr>
-                            <td>Longitude</td>
-                            <td>:</td>
-                            <td>{{$lahan->longitude}}</td>
-                        </tr>
-                    </table>
+                <!-- Right Column: Info -->
+                <div class="detail-info-section">
+                    <div class="detail-card-modern">
+                        <div class="detail-card-header">
+                            <h3>
+                                <i data-feather="info"></i>
+                                Informasi Lahan
+                            </h3>
+                        </div>
+                        <div class="detail-info-grid">
+                            <div class="info-item-modern">
+                                <div class="info-icon">
+                                    <i data-feather="map-pin"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Nama Lahan</span>
+                                    <span class="info-value">{{$lahan->name}}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item-modern">
+                                <div class="info-icon">
+                                    <i data-feather="user"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Nama Petani</span>
+                                    <span class="info-value">{{$lahan->nama_petani}}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item-modern">
+                                <div class="info-icon">
+                                    <i data-feather="layers"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Luas Lahan</span>
+                                    <span class="info-value">{{$lahan->luas_lahan}} hektar</span>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item-modern">
+                                <div class="info-icon">
+                                    <i data-feather="navigation"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Distrik</span>
+                                    <span class="info-value">{{$lahan->distrik->name}}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item-modern">
+                                <div class="info-icon">
+                                    <i data-feather="map-pin"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Alamat</span>
+                                    <span class="info-value">{{$lahan->alamat}}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item-modern">
+                                <div class="info-icon">
+                                    <i data-feather="phone"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">No. HP</span>
+                                    <span class="info-value">{{$lahan->no_hp ?? '-'}}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="info-item-modern">
+                                <div class="info-icon">
+                                    <i data-feather="compass"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Koordinat</span>
+                                    <span class="info-value">{{$lahan->latitude}}, {{$lahan->longitude}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="teks-data">
-                <div class="flex justify-between pb-2 items-center">
-                    <h3>Data Produksi</h3>
-                    <form method="GET" action="" class="">
-                        <label for="tahun" class="text-md">Pilih Tahun:</label>
-                        <select name="tahun" id="tahun" onchange="this.form.submit()" class="rounded-md ml-2 focus:ring-0 focus:outline-none focus:border-gray-500 border border-gray-300">
-                            <option value="">Semua Tahun</option>
-                            @foreach ($tahunProduksi as $tahun)
-                                <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>
-                                    {{ $tahun }}
-                                </option>
-                            @endforeach
-                        </select>
+
+            <!-- Data Produksi Section -->
+            <div class="detail-card-modern production-section">
+                <div class="production-header">
+                    <div class="production-title">
+                        <i data-feather="trending-up"></i>
+                        <h3>Data Produksi</h3>
+                    </div>
+                    <form method="GET" action="" class="filter-year-modern">
+                        <div class="filter-year-wrapper">
+                            <i data-feather="calendar"></i>
+                            <select name="tahun" id="tahun" onchange="this.form.submit()" class="select-year-modern">
+                                <option value="">Semua Tahun</option>
+                                @foreach ($tahunProduksi as $tahun)
+                                    <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>
+                                        {{ $tahun }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </form>
                 </div>
                 
-                <table border="1" cellpadding="5" class="border border-slate-300 ">
-                    <thead>
-                        <tr>
-                            <th class="font-medium">Tanggal Produksi</th>
-                            <th class="font-medium">Hasil Produksi (Ton)</th>
-                            <th class="font-medium">Kuartal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($produksi as $item)
-                            @php
-                                $bulan = \Carbon\Carbon::parse($item->tanggal_produksi)->month;
-                                $kuartal = ceil($bulan / 3);
-                            @endphp
+                @if($produksi->count() > 0)
+                <div class="table-wrapper-production">
+                    <table class="table-production-modern">
+                        <thead>
                             <tr>
-                                <td>{{ \Carbon\Carbon::parse($item->tanggal_produksi)->translatedFormat('d F Y') }}</td>
-                                <td>{{ $item->hasil_produksi }}</td>
-                                <td>Kuartal {{ $kuartal }}</td>
+                                <th>Tanggal Produksi</th>
+                                <th>Hasil Produksi (Ton)</th>
+                                <th>Kuartal</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2" class="font-medium">Total Hasil Produksi</td>
-                            <td class="font-medium">{{ $totalProduksi }} Ton</td>
-                        </tr>
-                    </tfoot>
-                </table>
-                
-            </div>
-            
-        </section>
-        <!-- content section end -->
-        <!-- gallery section start -->
-        <section class="photos">
-            <h3>Foto Lahan</h3>
-            <div class="gallery" id="gallery">
-                @forelse ($lahan->galeri as $foto)
-                <x-galeri-card :data="$foto"/>
-              @empty
-                <p>Belum ada foto lahan</p>
-              @endforelse
-            </div>
-            @if ($lahan->galeri->count() > 4)
-                <div class="show-more" onclick="toggleGallery()">Show More</div>
-            @endif
-        </section>
-        <!-- lightbox start -->
-        <div class="lightbox" id="lightbox">
-            <span onclick="closeLightbox()">×</span>
-            <img id="lightbox-img" alt="Enlarged view of the selected image" />
-        </div>
-        <!-- lightbox end -->
-
-        <!-- gallery section end -->
-        <!-- other content start -->
-        <section class="other">
-            <h3>Lahan Lainnya</h3>
-            <!-- card view -->
-            <div class="grid" id="cardView">
-                @forelse ($semua->take(4) as $lahan) {{-- Ambil hanya 4 data --}}
-                    <x-data-card :data="$lahan"/>
-                @empty
-                    <p>Belum ada data lahan</p>
-                @endforelse
-            </div>
-        
-            @if($semua->count() > 4) {{-- Tampilkan tombol jika ada lebih dari 4 data --}}
-                <div class="text-right mt-3">
-                    <a href="{{ route('front.data') }}" class="btn btn-primary text-sm hover:underline">Lihat Lebih Banyak</a>
+                        </thead>
+                        <tbody>
+                            @foreach ($produksi as $item)
+                                @php
+                                    $bulan = \Carbon\Carbon::parse($item->tanggal_produksi)->month;
+                                    $kuartal = ceil($bulan / 3);
+                                @endphp
+                                <tr>
+                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_produksi)->translatedFormat('d F Y') }}</td>
+                                    <td><strong>{{ number_format($item->hasil_produksi, 2) }}</strong></td>
+                                    <td><span class="badge-kuartal">Kuartal {{ $kuartal }}</span></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2"><strong>Total Hasil Produksi</strong></td>
+                                <td><strong class="total-production">{{ number_format($totalProduksi, 2) }} Ton</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
+                @else
+                <div class="empty-production">
+                    <i data-feather="inbox"></i>
+                    <p>Belum ada data produksi untuk tahun yang dipilih</p>
+                </div>
+                @endif
+            </div>
+
+            <!-- Gallery Section -->
+            @if($lahan->galeri->count() > 0)
+            <div class="detail-card-modern gallery-section">
+                <div class="detail-card-header">
+                    <h3>
+                        <i data-feather="image"></i>
+                        Foto Lahan
+                    </h3>
+                </div>
+                <div class="gallery-modern" id="gallery">
+                    @foreach ($lahan->galeri as $foto)
+                        <x-galeri-card :data="$foto"/>
+                    @endforeach
+                </div>
+                @if ($lahan->galeri->count() > 6)
+                    <div class="gallery-toggle">
+                        <button class="btn-show-more" onclick="toggleGallery()" id="galleryToggle">
+                            <span id="galleryToggleText">Lihat Lebih Banyak</span>
+                            <i data-feather="chevron-down" id="galleryToggleIcon"></i>
+                        </button>
+                    </div>
+                @endif
+            </div>
             @endif
-        </section>
-        <!-- other content end -->
-       <x-footer/>
+        </div>
+    </section>
+
+    <!-- Lahan Lainnya Section -->
+    @if($semua->count() > 0)
+    <section class="other-lahan-modern">
+        <div class="container">
+            <div class="section-header-modern">
+                <h2>Lahan <span class="text-gradient">Lainnya</span></h2>
+                <p>Jelajahi lahan jagung lainnya di Kabupaten Merauke</p>
+            </div>
+            <div class="data-grid-modern">
+                @foreach ($semua->take(4) as $lahanItem)
+                    <x-data-card :data="$lahanItem"/>
+                @endforeach
+            </div>
+            @if($semua->count() > 4)
+            <div class="view-more-wrapper">
+                <a href="{{ route('front.data') }}" class="btn-view-more">
+                    Lihat Semua Lahan
+                    <i data-feather="arrow-right"></i>
+                </a>
+            </div>
+            @endif
+        </div>
+    </section>
+    @endif
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span onclick="closeLightbox()" class="lightbox-close">×</span>
+        <img id="lightbox-img" alt="Enlarged view of the selected image" />
+    </div>
+
+    <x-footer/>
 @endsection
+
 @push('after-styles')
     <link rel="stylesheet" href="{{ asset('css/filament/lightbox.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/filament/other.css') }}" />
+    <style>
+        /* Modern Detail Hero Section */
+        .detail-hero-modern {
+            min-height: 40vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
+            background-image: url("{{ asset('img/header-bg-2.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .detail-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.9) 0%, rgba(45, 90, 45, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .detail-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            width: 100%;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .detail-hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .detail-hero-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Detail Section */
+        .detail-modern {
+            padding: 4rem 2rem;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Detail Grid */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Detail Card */
+        .detail-card-modern {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .detail-card-modern:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .detail-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .detail-card-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0;
+        }
+
+        .detail-card-header i {
+            width: 24px;
+            height: 24px;
+            color: #228b22;
+        }
+
+        /* Map Section */
+        .map-container-detail {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .map-detail {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+        }
+
+        /* Info Grid */
+        .detail-info-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-item-modern {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item-modern:hover {
+            background: #f1f5f9;
+            transform: translateX(5px);
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .info-icon i {
+            width: 20px;
+            height: 20px;
+        }
+
+        .info-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            flex: 1;
+        }
+
+        .info-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        /* Production Section */
+        .production-section {
+            margin-bottom: 2rem;
+        }
+
+        .production-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .production-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .production-title h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
+        .production-title i {
+            width: 24px;
+            height: 24px;
+            color: #228b22;
+        }
+
+        .filter-year-modern {
+            display: flex;
+        }
+
+        .filter-year-wrapper {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            gap: 0.75rem;
+            border: 2px solid #e2e8f0;
+        }
+
+        .filter-year-wrapper i {
+            width: 18px;
+            height: 18px;
+            color: #228b22;
+        }
+
+        .select-year-modern {
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            color: #1a1a1a;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23228b22' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right center;
+            padding-right: 2rem;
+        }
+
+        /* Production Table */
+        .table-wrapper-production {
+            overflow-x: auto;
+        }
+
+        .table-production-modern {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-production-modern thead {
+            background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
+            color: #fff;
+        }
+
+        .table-production-modern th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .table-production-modern tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .table-production-modern tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .table-production-modern td {
+            padding: 1rem;
+            color: #1a1a1a;
+        }
+
+        .badge-kuartal {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(34, 139, 34, 0.1);
+            color: #228b22;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .table-production-modern tfoot {
+            background: #f8fafc;
+            font-weight: 600;
+        }
+
+        .table-production-modern tfoot td {
+            padding: 1.25rem 1rem;
+        }
+
+        .total-production {
+            color: #228b22;
+            font-size: 1.1rem;
+        }
+
+        .empty-production {
+            text-align: center;
+            padding: 3rem;
+            color: #64748b;
+        }
+
+        .empty-production i {
+            width: 60px;
+            height: 60px;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin-bottom: 2rem;
+        }
+
+        .gallery-modern {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .gallery-modern img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-modern img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-modern.hidden-items img:nth-child(n+7) {
+            display: none;
+        }
+
+        .gallery-toggle {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .btn-show-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-show-more:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(34, 139, 34, 0.3);
+        }
+
+        .btn-show-more i {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-show-more.expanded i {
+            transform: rotate(180deg);
+        }
+
+        /* Other Lahan Section */
+        .other-lahan-modern {
+            padding: 4rem 2rem;
+            background: #fff;
+        }
+
+        .section-header-modern {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header-modern h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header-modern p {
+            font-size: 1.1rem;
+            color: #64748b;
+        }
+
+        .data-grid-modern {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .view-more-wrapper {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn-view-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
+            color: #fff;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view-more:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(34, 139, 34, 0.3);
+        }
+
+        .btn-view-more i {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-view-more:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Google Map Info Window Styling */
+        .card-google-map {
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            max-width: 250px;
+        }
+
+        .card-title-google-map {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text-google-map {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .card-button-google-map {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
+            color: #fff;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .card-button-google-map:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(34, 139, 34, 0.3);
+        }
+
+        /* Lightbox Updates */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: #fff;
+            font-size: 3rem;
+            cursor: pointer;
+            z-index: 1001;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: rotate(90deg);
+        }
+
+        /* Utility Classes */
+        .text-gradient {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .map-detail {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .detail-hero-title {
+                font-size: 2rem;
+            }
+
+            .detail-hero-description {
+                font-size: 1rem;
+            }
+
+            .production-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .gallery-modern {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .data-grid-modern {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 @endpush
+
 @push('after-scripts')
+    <script>
+        var activeInfoWindow = null; 
+
+        function initMap() {
+            var lahan = {
+                name: "{{ $lahan->name }}",
+                alamat: "{{ $lahan->alamat }}",
+                slug: "{{ $lahan->slug }}",
+                latitude: {{ $lahan->latitude }},
+                longitude: {{ $lahan->longitude }}
+            };
+
+            var lokasi = { lat: lahan.latitude, lng: lahan.longitude };
+
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: lokasi,
+                styles: [
+                    {
+                        featureType: "poi",
+                        elementType: "labels",
+                        stylers: [{ visibility: "off" }]
+                    }
+                ]
+            });
+
+            var marker = new google.maps.Marker({
+                position: lokasi,
+                map: map,
+                title: lahan.name,
+                icon: {
+                    url: "{{ asset('img/corn-cob.png') }}", 
+                    scaledSize: new google.maps.Size(40, 40),
+                } 
+            });
+
+            var contentString =
+                '<div class="card-google-map">' +
+                    '<h5 class="card-title-google-map">' + lahan.name + '</h5>' +
+                    '<p class="card-text-google-map">' + lahan.alamat + '</p>' +
+                    '<a href="https://www.google.com/maps?q=' + lahan.latitude + ',' + lahan.longitude + '" target="_blank" class="card-button-google-map">Lihat di Google Maps</a>' +
+                '</div>';
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            marker.addListener('click', function() {
+                if (activeInfoWindow) {
+                    activeInfoWindow.close();
+                }
+                infowindow.open(map, marker);
+                activeInfoWindow = infowindow;
+            });
+
+            google.maps.event.addListener(map, 'click', function() {
+                if (activeInfoWindow) {
+                    activeInfoWindow.close();
+                    activeInfoWindow = null;
+                }
+            });
+        }
+
+        function toggleGallery() {
+            const gallery = document.getElementById('gallery');
+            const toggleBtn = document.getElementById('galleryToggle');
+            const toggleText = document.getElementById('galleryToggleText');
+            const toggleIcon = document.getElementById('galleryToggleIcon');
+            
+            if (gallery.classList.contains('hidden-items')) {
+                gallery.classList.remove('hidden-items');
+                toggleText.textContent = 'Lihat Lebih Sedikit';
+                toggleBtn.classList.add('expanded');
+            } else {
+                gallery.classList.add('hidden-items');
+                toggleText.textContent = 'Lihat Lebih Banyak';
+                toggleBtn.classList.remove('expanded');
+            }
+            
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        }
+
+        // Initialize gallery state
+        document.addEventListener('DOMContentLoaded', function() {
+            const gallery = document.getElementById('gallery');
+            const galleryCount = {{ $lahan->galeri->count() ?? 0 }};
+            if (gallery && galleryCount > 6) {
+                gallery.classList.add('hidden-items');
+            }
+        });
+    </script>
     <script
         async
         defer

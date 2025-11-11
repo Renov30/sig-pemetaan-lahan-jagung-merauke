@@ -1,5 +1,6 @@
 <img
-src="{{asset('storage/' .$data->gambar)}}"
-alt="gambar"
+src="{{Storage::url($data->gambar)}}"
+alt="Foto lahan jagung"
 onclick="openLightbox(this.src)"
+loading="lazy"
 />
