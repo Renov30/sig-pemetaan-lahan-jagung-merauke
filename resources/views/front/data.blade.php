@@ -43,10 +43,17 @@
                         </select>
                     </form>
                     
-                    <!-- Toggle View Button -->
-                    <button class="toggle-view-btn" id="toggleViewBtn" title="Toggle View">
-                        <i data-feather="grid"></i>
-                    </button>
+                    <!-- Toggle View Buttons -->
+                    <div class="toggle-view-group">
+                        <button class="toggle-view-btn" id="toggleCardView" title="Tampilan Card" data-view="card">
+                            <i data-feather="grid"></i>
+                            <span>Card</span>
+                        </button>
+                        <button class="toggle-view-btn" id="toggleTableView" title="Tampilan Tabel" data-view="table">
+                            <i data-feather="list"></i>
+                            <span>Tabel</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -65,6 +72,7 @@
 
             <!-- Table View -->
             <div class="hidden" id="tableView">
+                @if($semua->count() > 0)
                 <div class="table-wrapper-modern">
                     <table class="table-modern">
                         <thead>
@@ -78,21 +86,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($semua as $lahan)
+                            @foreach ($semua as $lahan)
                                 <x-data-table :data="$lahan"/>              
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center">Belum ada data lahan</td>
-                                </tr>
-                            @endforelse
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
+                @else
+                <div class="empty-state">
+                    <i data-feather="inbox"></i>
+                    <h3>Tidak ada data lahan</h3>
+                    <p>Belum ada data lahan jagung yang tersedia.</p>
+                </div>
+                @endif
             </div>
 
-            <!-- Pagination -->
+            <!-- Pagination Card View -->
             @if($semua->hasPages())
-            <div class="pagination-modern-wrapper">
+            <div class="pagination-modern-wrapper" id="paginationCardView">
+                <div class="pagination-modern">
+                    {{ $semua->appends(request()->query())->links() }}
+                </div>
+            </div>
+            @endif
+
+            <!-- Pagination Table View -->
+            @if($semua->hasPages())
+            <div class="pagination-modern-wrapper hidden" id="paginationTableView">
                 <div class="pagination-modern">
                     {{ $semua->appends(request()->query())->links() }}
                 </div>
@@ -263,26 +283,84 @@
             box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
         }
 
-        .toggle-view-btn {
-            width: 50px;
-            height: 50px;
+        .toggle-view-group {
+            display: flex;
+            gap: 0.5rem;
             background: #fff;
+            padding: 0.25rem;
+            border-radius: 50px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border: 2px solid #e2e8f0;
-            border-radius: 50%;
+        }
+
+        .toggle-view-btn {
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: transparent;
+            border: none;
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: #228b22;
+            color: #64748b;
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .toggle-view-btn i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .toggle-view-btn span {
+            display: none;
         }
 
         .toggle-view-btn:hover {
+            color: #228b22;
+            background: rgba(34, 139, 34, 0.1);
+        }
+
+        .toggle-view-btn.active {
             background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
             color: #fff;
-            border-color: #228b22;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(34, 139, 34, 0.3);
+            box-shadow: 0 2px 8px rgba(34, 139, 34, 0.3);
+        }
+
+        .toggle-view-btn.active:hover {
+            background: linear-gradient(135deg, #1a7a1a 0%, #255025 100%);
+        }
+
+        /* Show text on larger screens */
+        @media (min-width: 640px) {
+            .toggle-view-btn span {
+                display: inline;
+            }
+
+            .toggle-view-btn {
+                padding: 0.6rem 1.5rem;
+            }
+        }
+
+        /* Responsive toggle buttons */
+        @media (max-width: 639px) {
+            .toggle-view-group {
+                gap: 0.25rem;
+                padding: 0.2rem;
+            }
+
+            .toggle-view-btn {
+                padding: 0.5rem 0.75rem;
+                min-width: 44px;
+            }
+
+            .toggle-view-btn i {
+                width: 16px;
+                height: 16px;
+            }
         }
 
         /* Grid */
@@ -452,16 +530,21 @@
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             margin-bottom: 3rem;
+            overflow-x: auto;
         }
 
         .table-modern {
             width: 100%;
             border-collapse: collapse;
+            min-width: 800px;
         }
 
         .table-modern thead {
             background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
             color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         .table-modern th {
@@ -469,6 +552,16 @@
             text-align: left;
             font-weight: 600;
             font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        .table-modern th:first-child {
+            padding-left: 1.5rem;
+        }
+
+        .table-modern th:last-child {
+            padding-right: 1.5rem;
+            text-align: center;
         }
 
         .table-modern tbody tr {
@@ -478,6 +571,7 @@
 
         .table-modern tbody tr:hover {
             background: #f8fafc;
+            transform: scale(1.01);
         }
 
         .table-modern tbody tr:last-child {
@@ -487,6 +581,16 @@
         .table-modern td {
             padding: 1.2rem 1rem;
             color: #1a1a1a;
+            vertical-align: middle;
+        }
+
+        .table-modern td:first-child {
+            padding-left: 1.5rem;
+        }
+
+        .table-modern td:last-child {
+            padding-right: 1.5rem;
+            text-align: center;
         }
 
         .table-modern td img {
@@ -494,12 +598,41 @@
             height: 60px;
             object-fit: cover;
             border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-modern td strong {
+            color: #1a1a1a;
+            font-weight: 600;
         }
 
         .table-modern .text-center {
             text-align: center;
             color: #64748b;
             padding: 3rem;
+        }
+
+        /* Responsive table */
+        @media (max-width: 768px) {
+            .table-wrapper-modern {
+                border-radius: 15px;
+                margin-bottom: 2rem;
+            }
+
+            .table-modern {
+                min-width: 600px;
+            }
+
+            .table-modern th,
+            .table-modern td {
+                padding: 0.8rem 0.75rem;
+                font-size: 0.875rem;
+            }
+
+            .table-modern td img {
+                width: 50px;
+                height: 50px;
+            }
         }
 
         .table-action-btn {
@@ -698,24 +831,62 @@
 @push('after-scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const toggleBtn = document.getElementById('toggleViewBtn');
+            const toggleCardView = document.getElementById('toggleCardView');
+            const toggleTableView = document.getElementById('toggleTableView');
             const cardView = document.getElementById('cardView');
             const tableView = document.getElementById('tableView');
+            const paginationCardView = document.getElementById('paginationCardView');
+            const paginationTableView = document.getElementById('paginationTableView');
             
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', function() {
-                    if (cardView.classList.contains('hidden')) {
-                        cardView.classList.remove('hidden');
-                        tableView.classList.add('hidden');
-                        toggleBtn.querySelector('i').setAttribute('data-feather', 'grid');
-                    } else {
-                        cardView.classList.add('hidden');
-                        tableView.classList.remove('hidden');
-                        toggleBtn.querySelector('i').setAttribute('data-feather', 'list');
-                    }
-                    if (typeof feather !== 'undefined') {
-                        feather.replace();
-                    }
+            // Load saved view preference from localStorage
+            const savedView = localStorage.getItem('dataViewPreference') || 'card';
+            
+            // Function to switch view
+            function switchView(view) {
+                if (view === 'card') {
+                    // Show card view
+                    cardView.classList.remove('hidden');
+                    tableView.classList.add('hidden');
+                    if (paginationCardView) paginationCardView.classList.remove('hidden');
+                    if (paginationTableView) paginationTableView.classList.add('hidden');
+                    
+                    // Update button states
+                    toggleCardView.classList.add('active');
+                    toggleTableView.classList.remove('active');
+                } else {
+                    // Show table view
+                    cardView.classList.add('hidden');
+                    tableView.classList.remove('hidden');
+                    if (paginationCardView) paginationCardView.classList.add('hidden');
+                    if (paginationTableView) paginationTableView.classList.remove('hidden');
+                    
+                    // Update button states
+                    toggleCardView.classList.remove('active');
+                    toggleTableView.classList.add('active');
+                }
+                
+                // Save preference to localStorage
+                localStorage.setItem('dataViewPreference', view);
+                
+                // Replace feather icons
+                if (typeof feather !== 'undefined') {
+                    feather.replace();
+                }
+            }
+            
+            // Set initial view based on saved preference
+            switchView(savedView);
+            
+            // Add event listeners
+            if (toggleCardView) {
+                toggleCardView.addEventListener('click', function() {
+                    switchView('card');
+                });
+            }
+            
+            if (toggleTableView) {
+                toggleTableView.addEventListener('click', function() {
+                    switchView('table');
                 });
             }
         });
