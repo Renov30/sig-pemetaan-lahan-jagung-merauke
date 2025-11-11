@@ -1,14 +1,16 @@
 <tr>
     <td>
-      <img src="{{Storage::url($data->thumbnail)}}" />
+        <img src="{{Storage::url($data->thumbnail)}}" alt="{{$data->name}}" />
     </td>
-    <td><p class="nama-petani">Lahan Pak {{$data->name}}</p></td>
-    <td><p>{{$data->name}}</p></td>
-    <td><p>{{$data->distrik->name}}</p></td>
-    <td><p>{{$data->alamat}}</p></td>
     <td>
-      <p>
-        <a href="{{route('front.detail', $data->slug)}}"><button>Lihat Detail</button></a>
-      </p>
+        <strong>{{$data->name}}</strong>
     </td>
-  </tr>
+    <td>{{$data->nama_petani}}</td>
+    <td>{{$data->distrik->name}}</td>
+    <td>{{ Str::limit($data->alamat, 50) }}</td>
+    <td>
+        <a href="{{route('front.detail', $data->slug)}}" class="table-action-btn">
+            Lihat Detail
+        </a>
+    </td>
+</tr>
