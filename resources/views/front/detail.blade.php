@@ -318,6 +318,26 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Responsive container untuk layar besar */
+        @media (min-width: 1440px) {
+            .container {
+                max-width: 1400px;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .container {
+                max-width: 1600px;
+            }
+        }
+
+        @media (min-width: 2560px) {
+            .container {
+                max-width: 2000px;
+            }
         }
 
         /* Detail Grid */
@@ -644,6 +664,7 @@
         .other-lahan-modern {
             padding: 4rem 2rem;
             background: #f8fafc;
+            width: 100%;
         }
 
         .section-header-modern {
@@ -663,6 +684,49 @@
             color: #64748b;
         }
 
+        /* Responsive untuk layar besar */
+        @media (min-width: 1200px) {
+            .other-lahan-modern {
+                padding: 5rem 3rem;
+            }
+
+            .section-header-modern h2 {
+                font-size: 2.75rem;
+            }
+
+            .section-header-modern p {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .other-lahan-modern {
+                padding: 6rem 4rem;
+            }
+
+            .section-header-modern {
+                margin-bottom: 4rem;
+            }
+
+            .section-header-modern h2 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .other-lahan-modern {
+                padding: 7rem 5rem;
+            }
+
+            .section-header-modern h2 {
+                font-size: 3.5rem;
+            }
+
+            .section-header-modern p {
+                font-size: 1.25rem;
+            }
+        }
+
         /* Empty State untuk Lahan Lainnya */
         .empty-state-lahan {
             grid-column: 1 / -1;
@@ -671,6 +735,8 @@
             background: #fff;
             border-radius: 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .empty-state-lahan i {
@@ -690,11 +756,79 @@
             color: #64748b;
         }
 
+        /* Responsive empty state untuk layar besar */
+        @media (min-width: 1440px) {
+            .empty-state-lahan {
+                padding: 5rem 3rem;
+            }
+
+            .empty-state-lahan i {
+                width: 100px;
+                height: 100px;
+            }
+
+            .empty-state-lahan h3 {
+                font-size: 1.75rem;
+            }
+
+            .empty-state-lahan p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .empty-state-lahan {
+                padding: 6rem 4rem;
+            }
+
+            .empty-state-lahan h3 {
+                font-size: 2rem;
+            }
+
+            .empty-state-lahan p {
+                font-size: 1.15rem;
+            }
+        }
+
         .data-grid-modern {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
             margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        /* Responsive grid untuk layar besar */
+        @media (min-width: 1200px) {
+            .data-grid-modern {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 2.5rem;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .data-grid-modern {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2.5rem;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .data-grid-modern {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 3rem;
+                max-width: 1600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        @media (min-width: 2560px) {
+            .data-grid-modern {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 3rem;
+                max-width: 2000px;
+            }
         }
 
         /* Modern Card untuk Lahan Lainnya */
@@ -725,6 +859,37 @@
             width: 100%;
             height: 220px;
             overflow: hidden;
+        }
+
+        /* Responsive card image untuk layar besar */
+        @media (min-width: 1200px) {
+            .card-image-wrapper {
+                height: 240px;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .card-image-wrapper {
+                height: 260px;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .card-image-wrapper {
+                height: 280px;
+            }
+
+            .card-content-modern {
+                padding: 2rem;
+            }
+
+            .card-title-modern {
+                font-size: 1.35rem;
+            }
+
+            .card-info-item {
+                font-size: 0.95rem;
+            }
         }
 
         .card-image-wrapper img {
@@ -838,6 +1003,7 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+            font-size: 1rem;
         }
 
         .btn-view-more:hover {
@@ -853,6 +1019,30 @@
 
         .btn-view-more:hover i {
             transform: translateX(5px);
+        }
+
+        /* Responsive button untuk layar besar */
+        @media (min-width: 1440px) {
+            .btn-view-more {
+                padding: 1.2rem 2.5rem;
+                font-size: 1.1rem;
+            }
+
+            .btn-view-more i {
+                width: 22px;
+                height: 22px;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .btn-view-more {
+                padding: 1.5rem 3rem;
+                font-size: 1.15rem;
+            }
+
+            .view-more-wrapper {
+                margin-top: 3rem;
+            }
         }
 
         /* Google Map Info Window Styling */
@@ -947,7 +1137,7 @@
             background-clip: text;
         }
 
-        /* Responsive */
+        /* Responsive - Tablet dan Mobile */
         @media (max-width: 968px) {
             .detail-grid {
                 grid-template-columns: 1fr;
@@ -978,6 +1168,7 @@
 
             .data-grid-modern {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
             .section-header-modern h2 {
@@ -990,6 +1181,26 @@
 
             .other-lahan-modern {
                 padding: 3rem 1.5rem;
+            }
+
+            .card-image-wrapper {
+                height: 200px;
+            }
+        }
+
+        /* Responsive - Tablet Landscape */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .data-grid-modern {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        /* Responsive - Desktop Small */
+        @media (min-width: 1025px) and (max-width: 1199px) {
+            .data-grid-modern {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
             }
         }
     </style>
