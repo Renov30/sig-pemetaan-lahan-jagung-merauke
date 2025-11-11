@@ -1,57 +1,307 @@
 @extends('front.layouts.app')
 @section('title', 'Peta')
 @section('content')
-        <x-nav/>
-        <!-- content start -->
-        <section class="content-peta">
-            <h2>Peta <span>Lahan</span></h2>
-            <p>
-                Tampilan penyebaran lahan jagung di sekitar Kabupaten Merauke yang telah terdata.
-            </p>
+    <x-nav/>
+    
+    <!-- Modern Hero Section -->
+    <section class="peta-hero-modern">
+        <div class="peta-hero-overlay"></div>
+        <div class="peta-hero-content">
+            <div class="peta-hero-text">
+                <h1 class="peta-hero-title">
+                    Peta <span class="text-gradient">Lahan</span>
+                </h1>
+                <p class="peta-hero-description">
+                    Tampilan penyebaran lahan jagung di sekitar Kabupaten Merauke yang telah terdata.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Peta Section -->
+    <section class="peta-modern">
+        <div class="container">
             <!-- Filter Distrik -->
-            <div class="top-peta">
-                <form action="{{ route('front.peta') }}" method="GET" class="filter-distrik">
-                    <select name="distrik" onchange="this.form.submit()">
-                        <option value="">Pilih Distrik</option>
-                        @foreach($distriks as $distrik)
-                            <option value="{{ $distrik->id }}" {{ request('distrik') == $distrik->id ? 'selected' : '' }}>
-                                {{ $distrik->name }}
-                            </option>
-                        @endforeach
-                    </select>
+            <div class="peta-controls">
+                <form action="{{ route('front.peta') }}" method="GET" class="filter-peta-modern">
+                    <div class="filter-wrapper">
+                        <i data-feather="filter"></i>
+                        <select name="distrik" onchange="this.form.submit()" class="select-peta-modern">
+                            <option value="">Semua Distrik</option>
+                            @foreach($distriks as $distrik)
+                                <option value="{{ $distrik->id }}" {{ request('distrik') == $distrik->id ? 'selected' : '' }}>
+                                    {{ $distrik->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </form>
             </div>
             
-            <div class="row">
-                <div id="map"></div>
-                <script>
-                    function initMap() {
-                        var lokasi = { lat: -8.4975434, lng: 140.3882068 }; 
-                        var map = new google.maps.Map(
-                            document.getElementById("map"),
-                            {
-                                zoom: 10,
-                                center: lokasi,
-                            }
-                        );
-
-                        var marker = new google.maps.Marker({
-                            position: lokasi,
-                            map: map,
-                        });
-                    }
-                </script>
+            <!-- Map Container -->
+            <div class="map-container-modern">
+                <div id="map" class="map-modern"></div>
+                <div class="map-info">
+                    <div class="map-info-card">
+                        <i data-feather="info"></i>
+                        <div>
+                            <h4>Informasi Peta</h4>
+                            <p>Klik pada marker untuk melihat detail lahan jagung</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
-        <!-- content section end -->
-        <x-footer/>
+        </div>
+    </section>
+    
+    <x-footer/>
 @endsection
+
+@push('after-styles')
+    <style>
+        /* Modern Peta Hero Section */
+        .peta-hero-modern {
+            min-height: 40vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
+            background-image: url("{{ asset('img/header-bg-2.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        .peta-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.9) 0%, rgba(45, 90, 45, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .peta-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            width: 100%;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .peta-hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .peta-hero-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Peta Section */
+        .peta-modern {
+            padding: 4rem 2rem;
+            background: #f8fafc;
+            min-height: 70vh;
+        }
+
+        /* Controls */
+        .peta-controls {
+            margin-bottom: 2rem;
+        }
+
+        .filter-peta-modern {
+            display: inline-block;
+        }
+
+        .filter-wrapper {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            gap: 0.75rem;
+        }
+
+        .filter-wrapper i {
+            color: #228b22;
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .select-peta-modern {
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            color: #1a1a1a;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23228b22' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right center;
+            padding-right: 2rem;
+            min-width: 200px;
+        }
+
+        /* Map Container */
+        .map-container-modern {
+            position: relative;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .map-modern {
+            width: 100%;
+            height: 600px;
+            border-radius: 20px;
+        }
+
+        .map-info {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+        }
+
+        .map-info-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            max-width: 300px;
+        }
+
+        .map-info-card i {
+            width: 24px;
+            height: 24px;
+            color: #228b22;
+            flex-shrink: 0;
+        }
+
+        .map-info-card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0 0 0.25rem 0;
+        }
+
+        .map-info-card p {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Google Map Info Window Styling */
+        .card-google-map {
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            max-width: 250px;
+        }
+
+        .card-title-google-map {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text-google-map {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .card-button-google-map {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
+            color: #fff;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .card-button-google-map:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(34, 139, 34, 0.3);
+        }
+
+        /* Utility Classes */
+        .text-gradient {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .peta-hero-title {
+                font-size: 2rem;
+            }
+
+            .peta-hero-description {
+                font-size: 1rem;
+            }
+
+            .map-modern {
+                height: 500px;
+            }
+
+            .map-info {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .map-info-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+@endpush
+
 @push('after-scripts')
- <script>
+    <script>
         function initMap() {
             var mapOptions = {
                 zoom: 12,
                 center: { lat: -8.4975434, lng: 140.3882068  }, 
+                styles: [
+                    {
+                        featureType: "poi",
+                        elementType: "labels",
+                        stylers: [{ visibility: "off" }]
+                    }
+                ]
             };
 
             var map = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -79,7 +329,7 @@
                     title: lahan.name,
                     icon: {
                         url: "{{asset('img/corn-cob.png')}}", 
-                        scaledSize: new google.maps.Size(30, 30), 
+                        scaledSize: new google.maps.Size(40, 40), 
                     }
                 });
 
@@ -87,8 +337,6 @@
                     if (activeInfoWindow) {
                         activeInfoWindow.close();
                     }
-                    // map.setZoom(15);
-                    // map.setCenter(marker.getPosition());
                     infowindow.open(map, marker);
                     activeInfoWindow = infowindow;
                 });
