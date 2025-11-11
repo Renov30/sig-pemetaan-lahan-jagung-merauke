@@ -211,13 +211,13 @@
     </section>
 
     <!-- Lahan Lainnya Section -->
-    @if($semua->count() > 0)
     <section class="other-lahan-modern">
         <div class="container">
             <div class="section-header-modern">
                 <h2>Lahan <span class="text-gradient">Lainnya</span></h2>
                 <p>Jelajahi lahan jagung lainnya di Kabupaten Merauke</p>
             </div>
+            @if($semua->count() > 0)
             <div class="data-grid-modern">
                 @foreach ($semua->take(4) as $lahanItem)
                     <x-data-card :data="$lahanItem"/>
@@ -231,9 +231,21 @@
                 </a>
             </div>
             @endif
+            @else
+            <div class="empty-state-lahan">
+                <i data-feather="inbox"></i>
+                <h3>Tidak ada lahan lainnya</h3>
+                <p>Belum ada lahan jagung lainnya yang tersedia.</p>
+                <div style="margin-top: 1.5rem;">
+                    <a href="{{ route('front.data') }}" class="btn-view-more">
+                        Lihat Semua Lahan
+                        <i data-feather="arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            @endif
         </div>
     </section>
-    @endif
 
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
@@ -631,7 +643,7 @@
         /* Other Lahan Section */
         .other-lahan-modern {
             padding: 4rem 2rem;
-            background: #fff;
+            background: #f8fafc;
         }
 
         .section-header-modern {
@@ -651,11 +663,163 @@
             color: #64748b;
         }
 
+        /* Empty State untuk Lahan Lainnya */
+        .empty-state-lahan {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .empty-state-lahan i {
+            width: 80px;
+            height: 80px;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state-lahan h3 {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state-lahan p {
+            color: #64748b;
+        }
+
         .data-grid-modern {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
             margin-bottom: 2rem;
+        }
+
+        /* Modern Card untuk Lahan Lainnya */
+        .card-link-modern {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card-modern {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-modern:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(34, 139, 34, 0.15);
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .card-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card-modern:hover .card-image-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(34, 139, 34, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-modern:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-content-modern {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title-modern {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .card-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .card-info-item i {
+            width: 18px;
+            height: 18px;
+            color: #228b22;
+            flex-shrink: 0;
+        }
+
+        .card-info-item span {
+            line-height: 1.5;
+        }
+
+        .card-action {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #228b22;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .card-action i {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .card-modern:hover .card-action {
+            color: #2d5a2d;
+        }
+
+        .card-modern:hover .card-action i {
+            transform: translateX(5px);
         }
 
         .view-more-wrapper {
@@ -814,6 +978,18 @@
 
             .data-grid-modern {
                 grid-template-columns: 1fr;
+            }
+
+            .section-header-modern h2 {
+                font-size: 2rem;
+            }
+
+            .section-header-modern p {
+                font-size: 1rem;
+            }
+
+            .other-lahan-modern {
+                padding: 3rem 1.5rem;
             }
         }
     </style>
