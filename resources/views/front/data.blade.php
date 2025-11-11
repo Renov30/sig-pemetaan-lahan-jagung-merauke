@@ -92,8 +92,10 @@
 
             <!-- Pagination -->
             @if($semua->hasPages())
-            <div class="pagination-modern">
-                {{ $semua->links() }}
+            <div class="pagination-modern-wrapper">
+                <div class="pagination-modern">
+                    {{ $semua->appends(request()->query())->links() }}
+                </div>
             </div>
             @endif
         </div>
@@ -518,43 +520,134 @@
         }
 
         /* Pagination */
+        .pagination-modern-wrapper {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            width: 100%;
+        }
+
         .pagination-modern {
             display: flex;
             justify-content: center;
-            margin-top: 3rem;
+            align-items: center;
+            width: 100%;
         }
 
+        /* Reset semua style default dari Laravel pagination */
         .pagination-modern nav {
+            display: block;
+            width: 100%;
+        }
+
+        .pagination-modern nav > div,
+        .pagination-modern nav > ul {
             display: flex;
             gap: 0.5rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
 
+        .pagination-modern nav ul {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination-modern nav li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Style untuk semua link dan span di pagination */
         .pagination-modern nav a,
-        .pagination-modern nav span {
-            padding: 0.7rem 1.2rem;
+        .pagination-modern nav span:not([aria-disabled="true"]) {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            height: 40px;
+            padding: 0.5rem 1rem;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
-        }
-
-        .pagination-modern nav a {
+            border: 2px solid transparent;
             background: #fff;
             color: #228b22;
             border: 2px solid #e2e8f0;
+            cursor: pointer;
         }
 
+        /* Link pagination (halaman yang bisa diklik) */
         .pagination-modern nav a:hover {
             background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
-            color: #fff;
+            color: #fff !important;
             border-color: #228b22;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(34, 139, 34, 0.2);
         }
 
-        .pagination-modern nav span {
-            background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
-            color: #fff;
-            border: 2px solid #228b22;
+        /* Halaman aktif */
+        .pagination-modern nav span[aria-current="page"],
+        .pagination-modern nav .active span {
+            background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%) !important;
+            color: #fff !important;
+            border-color: #228b22 !important;
+            cursor: default;
+        }
+
+        /* Disabled state (Previous/Next yang disabled) */
+        .pagination-modern nav span[aria-disabled="true"] {
+            background: #f1f5f9 !important;
+            color: #94a3b8 !important;
+            border: 2px solid #e2e8f0 !important;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Style untuk teks "Previous" dan "Next" */
+        .pagination-modern nav a[rel="prev"],
+        .pagination-modern nav a[rel="next"],
+        .pagination-modern nav span[aria-label*="Previous"],
+        .pagination-modern nav span[aria-label*="Next"] {
+            font-weight: 600;
+        }
+
+        /* Info text jika ada */
+        .pagination-modern nav > div > div:first-child {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Responsive pagination */
+        @media (max-width: 640px) {
+            .pagination-modern nav a,
+            .pagination-modern nav span {
+                min-width: 35px;
+                height: 35px;
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .pagination-modern nav > div,
+            .pagination-modern nav > ul {
+                gap: 0.25rem;
+            }
         }
 
         /* Utility Classes */
