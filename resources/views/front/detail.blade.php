@@ -263,7 +263,6 @@
     <style>
         /* Modern Detail Hero Section */
         .detail-hero-modern {
-            min-height: 40vh;
             position: relative;
             display: flex;
             align-items: center;
@@ -273,7 +272,25 @@
             background-size: cover;
             background-position: center;
             overflow: hidden;
-            margin-top: 80px;
+            box-sizing: border-box;
+        }
+
+        /* Padding top untuk mengkompensasi navbar fixed - hanya untuk layar < 1920px */
+        @media (max-width: 1919px) {
+            .detail-hero-modern {
+                padding-top: 70px;
+                min-height: calc(40vh + 70px);
+                margin-top: 0;
+            }
+        }
+
+        /* Tidak ada padding top pada layar >= 1920px */
+        @media (min-width: 1920px) {
+            .detail-hero-modern {
+                padding-top: 0;
+                min-height: 40vh;
+                margin-top: 0;
+            }
         }
 
         .detail-hero-overlay {
@@ -293,6 +310,21 @@
             width: 100%;
             padding: 4rem 2rem;
             text-align: center;
+        }
+
+        /* Kurangi padding top saat window mengecil */
+        @media (max-width: 1919px) {
+            .detail-hero-content {
+                padding-top: 1rem;
+                padding-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .detail-hero-content {
+                padding-top: 0.5rem;
+                padding-bottom: 1.5rem;
+            }
         }
 
         .detail-hero-title {
