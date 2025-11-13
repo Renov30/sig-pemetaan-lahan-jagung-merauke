@@ -1,8 +1,8 @@
 @extends('front.layouts.app')
 @section('title', 'Data')
 @section('content')
-    <x-nav/>
-    
+    <x-nav />
+
     <!-- Modern Hero Section -->
     <section class="data-hero-modern">
         <div class="data-hero-overlay"></div>
@@ -26,23 +26,25 @@
                 <form action="{{ route('front.data') }}" method="GET" class="search-modern">
                     <div class="search-wrapper">
                         <i data-feather="search"></i>
-                        <input type="text" placeholder="Cari lahan jagung..." name="search" value="{{ request('search') }}" />
+                        <input type="text" placeholder="Cari lahan jagung..." name="search"
+                            value="{{ request('search') }}" />
                         <button type="submit" class="search-btn">Cari</button>
                     </div>
                 </form>
-                
+
                 <div class="filter-controls">
                     <form action="{{ route('front.data') }}" method="GET" class="filter-modern">
                         <select name="distrik" onchange="this.form.submit()" class="select-modern">
                             <option value="">Semua Distrik</option>
-                            @foreach($distriks as $distrik)
-                            <option value="{{ $distrik->id }}" {{ request('distrik') == $distrik->id ? 'selected' : '' }}>
-                                {{ $distrik->name }}
-                            </option>
+                            @foreach ($distriks as $distrik)
+                                <option value="{{ $distrik->id }}"
+                                    {{ request('distrik') == $distrik->id ? 'selected' : '' }}>
+                                    {{ $distrik->name }}
+                                </option>
                             @endforeach
                         </select>
                     </form>
-                    
+
                     <!-- Toggle View Buttons -->
                     <div class="toggle-view-group">
                         <button class="toggle-view-btn" id="toggleCardView" title="Tampilan Card" data-view="card">
@@ -60,7 +62,7 @@
             <!-- Card View -->
             <div class="data-grid-modern" id="cardView">
                 @forelse ($semua as $lahan)
-                    <x-data-card :data="$lahan"/>
+                    <x-data-card :data="$lahan" />
                 @empty
                     <div class="empty-state">
                         <i data-feather="inbox"></i>
@@ -72,56 +74,56 @@
 
             <!-- Table View -->
             <div class="hidden" id="tableView">
-                @if($semua->count() > 0)
-                <div class="table-wrapper-modern">
-                    <table class="table-modern">
-                        <thead>
-                            <tr>
-                                <th>Foto</th>
-                                <th>Nama Lahan</th>
-                                <th>Nama Petani</th>
-                                <th>Distrik</th>
-                                <th>Alamat</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($semua as $lahan)
-                                <x-data-table :data="$lahan"/>              
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                @if ($semua->count() > 0)
+                    <div class="table-wrapper-modern">
+                        <table class="table-modern">
+                            <thead>
+                                <tr>
+                                    <th>Foto</th>
+                                    <th>Nama Lahan</th>
+                                    <th>Nama Petani</th>
+                                    <th>Distrik</th>
+                                    <th>Alamat</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($semua as $lahan)
+                                    <x-data-table :data="$lahan" />
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 @else
-                <div class="empty-state">
-                    <i data-feather="inbox"></i>
-                    <h3>Tidak ada data lahan</h3>
-                    <p>Belum ada data lahan jagung yang tersedia.</p>
-                </div>
+                    <div class="empty-state">
+                        <i data-feather="inbox"></i>
+                        <h3>Tidak ada data lahan</h3>
+                        <p>Belum ada data lahan jagung yang tersedia.</p>
+                    </div>
                 @endif
             </div>
 
             <!-- Pagination Card View -->
-            @if($semua->hasPages())
-            <div class="pagination-modern-wrapper" id="paginationCardView">
-                <div class="pagination-modern">
-                    {{ $semua->appends(request()->query())->links() }}
+            @if ($semua->hasPages())
+                <div class="pagination-modern-wrapper" id="paginationCardView">
+                    <div class="pagination-modern">
+                        {{ $semua->appends(request()->query())->links() }}
+                    </div>
                 </div>
-            </div>
             @endif
 
             <!-- Pagination Table View -->
-            @if($semua->hasPages())
-            <div class="pagination-modern-wrapper hidden" id="paginationTableView">
-                <div class="pagination-modern">
-                    {{ $semua->appends(request()->query())->links() }}
+            @if ($semua->hasPages())
+                <div class="pagination-modern-wrapper hidden" id="paginationTableView">
+                    <div class="pagination-modern">
+                        {{ $semua->appends(request()->query())->links() }}
+                    </div>
                 </div>
-            </div>
             @endif
         </div>
     </section>
-    
-    <x-footer/>
+
+    <x-footer />
 @endsection
 
 @push('after-styles')
@@ -186,6 +188,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 5rem;
         }
 
         /* Controls */
@@ -654,8 +657,8 @@
 
         /* Pagination */
         .pagination-modern-wrapper {
-            margin-top: 3rem;
-            padding: 2rem 0;
+            /* margin-top: 3rem; */
+            /* padding: 2rem 0; */
             width: 100%;
         }
 
@@ -672,8 +675,8 @@
             width: 100%;
         }
 
-        .pagination-modern nav > div,
-        .pagination-modern nav > ul {
+        .pagination-modern nav>div,
+        .pagination-modern nav>ul {
             display: flex;
             gap: 0.5rem;
             list-style: none;
@@ -759,7 +762,7 @@
         }
 
         /* Info text jika ada */
-        .pagination-modern nav > div > div:first-child {
+        .pagination-modern nav>div>div:first-child {
             color: #64748b;
             font-size: 0.9rem;
             margin-bottom: 1rem;
@@ -769,6 +772,7 @@
 
         /* Responsive pagination */
         @media (max-width: 640px) {
+
             .pagination-modern nav a,
             .pagination-modern nav span {
                 min-width: 35px;
@@ -777,8 +781,8 @@
                 font-size: 0.85rem;
             }
 
-            .pagination-modern nav > div,
-            .pagination-modern nav > ul {
+            .pagination-modern nav>div,
+            .pagination-modern nav>ul {
                 gap: 0.25rem;
             }
         }
@@ -837,10 +841,10 @@
             const tableView = document.getElementById('tableView');
             const paginationCardView = document.getElementById('paginationCardView');
             const paginationTableView = document.getElementById('paginationTableView');
-            
+
             // Load saved view preference from localStorage
             const savedView = localStorage.getItem('dataViewPreference') || 'card';
-            
+
             // Function to switch view
             function switchView(view) {
                 if (view === 'card') {
@@ -849,7 +853,7 @@
                     tableView.classList.add('hidden');
                     if (paginationCardView) paginationCardView.classList.remove('hidden');
                     if (paginationTableView) paginationTableView.classList.add('hidden');
-                    
+
                     // Update button states
                     toggleCardView.classList.add('active');
                     toggleTableView.classList.remove('active');
@@ -859,31 +863,31 @@
                     tableView.classList.remove('hidden');
                     if (paginationCardView) paginationCardView.classList.add('hidden');
                     if (paginationTableView) paginationTableView.classList.remove('hidden');
-                    
+
                     // Update button states
                     toggleCardView.classList.remove('active');
                     toggleTableView.classList.add('active');
                 }
-                
+
                 // Save preference to localStorage
                 localStorage.setItem('dataViewPreference', view);
-                
+
                 // Replace feather icons
                 if (typeof feather !== 'undefined') {
                     feather.replace();
                 }
             }
-            
+
             // Set initial view based on saved preference
             switchView(savedView);
-            
+
             // Add event listeners
             if (toggleCardView) {
                 toggleCardView.addEventListener('click', function() {
                     switchView('card');
                 });
             }
-            
+
             if (toggleTableView) {
                 toggleTableView.addEventListener('click', function() {
                     switchView('table');

@@ -50,8 +50,8 @@
                         <i data-feather="layers"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>{{ $jumlahLuas }}h</h3>
-                        <p>Luas Lahan</p>
+                        <h3>{{ $jumlahLuas }}</h3>
+                        <p>Luas (hektar)</p>
                     </div>
                 </div>
                 <div class="stat-card">
@@ -59,8 +59,8 @@
                         <i data-feather="trending-up"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>{{ $jumlahProduksi }}ton</h3>
-                        <p>Produksi</p>
+                        <h3>{{ $jumlahProduksi }}</h3>
+                        <p>Produksi (ton)</p>
                     </div>
                 </div>
             </div>
@@ -234,8 +234,8 @@
                         <i data-feather="layers"></i>
                     </div>
                     <div class="stat-modern-content">
-                        <h3>{{ $jumlahLuas }}h</h3>
-                        <p>Luas Lahan</p>
+                        <h3>{{ $jumlahLuas }}</h3>
+                        <p>Luas Lahan (hektar)</p>
                     </div>
                     <div class="stat-modern-wave"></div>
                 </div>
@@ -245,8 +245,8 @@
                         <i data-feather="trending-up"></i>
                     </div>
                     <div class="stat-modern-content">
-                        <h3>{{ $jumlahProduksi }}ton</h3>
-                        <p>Jumlah Produksi</p>
+                        <h3>{{ $jumlahProduksi }}</h3>
+                        <p>Jumlah Produksi (ton)</p>
                     </div>
                     <div class="stat-modern-wave"></div>
                 </div>
@@ -361,7 +361,7 @@
 
         .btn-outline:hover {
             background: #fff;
-            color: #228b22;
+            color: #228b22 !important;
             transform: translateY(-3px);
         }
 

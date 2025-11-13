@@ -64,7 +64,7 @@ a:visited {
 .navbar .navbar-nav a {
     color: var(--font);
     display: inline-block;
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin: 0 1rem;
 }
 
@@ -639,26 +639,20 @@ th,
 td {
     padding: 8px 16px;
     border-bottom: 1px solid #e2e8f0;
-    text-align: center;
 }
 
 .teks-data td {
-    text-align: left;
     padding: 1rem;
     border: 1px solid #e2e8f0;
 }
 
 .teks-data th {
-    text-align: left;
     padding: 1rem;
     background-color: var(--white);
     color: var(--font);
     border: 1px solid #e2e8f0;
 }
 
-th {
-    background-color: #edf2f7;
-}
 td img {
     width: 100px;
     height: 100px;

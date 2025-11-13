@@ -1,8 +1,8 @@
 @extends('front.layouts.app')
 @section('title', 'Peta')
 @section('content')
-    <x-nav/>
-    
+    <x-nav />
+
     <!-- Modern Hero Section -->
     <section class="peta-hero-modern">
         <div class="peta-hero-overlay"></div>
@@ -28,8 +28,9 @@
                         <i data-feather="filter"></i>
                         <select name="distrik" onchange="this.form.submit()" class="select-peta-modern">
                             <option value="">Semua Distrik</option>
-                            @foreach($distriks as $distrik)
-                                <option value="{{ $distrik->id }}" {{ request('distrik') == $distrik->id ? 'selected' : '' }}>
+                            @foreach ($distriks as $distrik)
+                                <option value="{{ $distrik->id }}"
+                                    {{ request('distrik') == $distrik->id ? 'selected' : '' }}>
                                     {{ $distrik->name }}
                                 </option>
                             @endforeach
@@ -37,7 +38,7 @@
                     </div>
                 </form>
             </div>
-            
+
             <!-- Map Container -->
             <div class="map-container-modern">
                 <div id="map" class="map-modern"></div>
@@ -53,12 +54,18 @@
             </div>
         </div>
     </section>
-    
-    <x-footer/>
+
+    <x-footer />
 @endsection
 
 @push('after-styles')
     <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5rem;
+        }
+
         /* Modern Peta Hero Section */
         .peta-hero-modern {
             min-height: 40vh;
@@ -175,8 +182,8 @@
 
         .map-info {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 4rem;
+            right: 0.5rem;
             z-index: 10;
         }
 
@@ -294,18 +301,21 @@
         function initMap() {
             var mapOptions = {
                 zoom: 12,
-                center: { lat: -8.4975434, lng: 140.3882068  }, 
-                styles: [
-                    {
-                        featureType: "poi",
-                        elementType: "labels",
-                        stylers: [{ visibility: "off" }]
-                    }
-                ]
+                center: {
+                    lat: -8.4975434,
+                    lng: 140.3882068
+                },
+                styles: [{
+                    featureType: "poi",
+                    elementType: "labels",
+                    stylers: [{
+                        visibility: "off"
+                    }]
+                }]
             };
 
             var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-            var activeInfoWindow = null; 
+            var activeInfoWindow = null;
 
             var locations = @json($lahans);
 
@@ -314,9 +324,10 @@
 
                 var contentString =
                     '<div class="card-google-map">' +
-                        '<h5 class="card-title-google-map">' + lahan.name + '</h5>' +
-                        '<p class="card-text-google-map">' + lahan.alamat + '</p>' +
-                        '<a href="/data/detail-lahan/' + lahan.slug + '" class="card-button-google-map">Lihat Detail</a>' +
+                    '<h5 class="card-title-google-map">' + lahan.name + '</h5>' +
+                    '<p class="card-text-google-map">' + lahan.alamat + '</p>' +
+                    '<a href="/data/detail-lahan/' + lahan.slug +
+                    '" class="card-button-google-map">Lihat Detail</a>' +
                     '</div>';
 
                 var infowindow = new google.maps.InfoWindow({
@@ -328,8 +339,8 @@
                     map: map,
                     title: lahan.name,
                     icon: {
-                        url: "{{asset('img/corn-cob.png')}}", 
-                        scaledSize: new google.maps.Size(40, 40), 
+                        url: "{{ asset('img/corn-cob.png') }}",
+                        scaledSize: new google.maps.Size(40, 40),
                     }
                 });
 
@@ -350,9 +361,6 @@
             });
         }
     </script>
-    <script
-        async
-        defer
-        src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_API_KEY')}}&callback=initMap"
-    ></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap">
+    </script>
 @endpush

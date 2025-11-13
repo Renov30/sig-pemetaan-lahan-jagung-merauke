@@ -1,8 +1,8 @@
 @extends('front.layouts.app')
 @section('title', 'Detail Lahan')
 @section('content')
-    <x-nav/>
-    
+    <x-nav />
+
     <!-- Modern Hero Section -->
     <section class="detail-hero-modern">
         <div class="detail-hero-overlay"></div>
@@ -54,67 +54,67 @@
                                 </div>
                                 <div class="info-content">
                                     <span class="info-label">Nama Lahan</span>
-                                    <span class="info-value">{{$lahan->name}}</span>
+                                    <span class="info-value">{{ $lahan->name }}</span>
                                 </div>
                             </div>
-                            
+
                             <div class="info-item-modern">
                                 <div class="info-icon">
                                     <i data-feather="user"></i>
                                 </div>
                                 <div class="info-content">
                                     <span class="info-label">Nama Petani</span>
-                                    <span class="info-value">{{$lahan->nama_petani}}</span>
+                                    <span class="info-value">{{ $lahan->nama_petani }}</span>
                                 </div>
                             </div>
-                            
+
                             <div class="info-item-modern">
                                 <div class="info-icon">
                                     <i data-feather="layers"></i>
                                 </div>
                                 <div class="info-content">
                                     <span class="info-label">Luas Lahan</span>
-                                    <span class="info-value">{{$lahan->luas_lahan}} hektar</span>
+                                    <span class="info-value">{{ $lahan->luas_lahan }} hektar</span>
                                 </div>
                             </div>
-                            
+
                             <div class="info-item-modern">
                                 <div class="info-icon">
                                     <i data-feather="navigation"></i>
                                 </div>
                                 <div class="info-content">
                                     <span class="info-label">Distrik</span>
-                                    <span class="info-value">{{$lahan->distrik->name}}</span>
+                                    <span class="info-value">{{ $lahan->distrik->name }}</span>
                                 </div>
                             </div>
-                            
+
                             <div class="info-item-modern">
                                 <div class="info-icon">
                                     <i data-feather="map-pin"></i>
                                 </div>
                                 <div class="info-content">
                                     <span class="info-label">Alamat</span>
-                                    <span class="info-value">{{$lahan->alamat}}</span>
+                                    <span class="info-value">{{ $lahan->alamat }}</span>
                                 </div>
                             </div>
-                            
+
                             <div class="info-item-modern">
                                 <div class="info-icon">
                                     <i data-feather="phone"></i>
                                 </div>
                                 <div class="info-content">
                                     <span class="info-label">No. HP</span>
-                                    <span class="info-value">{{$lahan->no_hp ?? '-'}}</span>
+                                    <span class="info-value">{{ $lahan->no_hp ?? '-' }}</span>
                                 </div>
                             </div>
-                            
+
                             <div class="info-item-modern">
                                 <div class="info-icon">
                                     <i data-feather="compass"></i>
                                 </div>
                                 <div class="info-content">
                                     <span class="info-label">Koordinat</span>
-                                    <span class="info-value">{{$lahan->latitude}}, {{$lahan->longitude}}</span>
+                                    <span class="info-value">{{ $lahan->latitude }}, {{ $lahan->longitude }}</span>
                                 </div>
                             </div>
                         </div>
@@ -143,69 +143,71 @@
                         </div>
                     </form>
                 </div>
-                
-                @if($produksi->count() > 0)
-                <div class="table-wrapper-production">
-                    <table class="table-production-modern">
-                        <thead>
-                            <tr>
-                                <th>Tanggal Produksi</th>
-                                <th>Hasil Produksi (Ton)</th>
-                                <th>Kuartal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($produksi as $item)
-                                @php
-                                    $bulan = \Carbon\Carbon::parse($item->tanggal_produksi)->month;
-                                    $kuartal = ceil($bulan / 3);
-                                @endphp
+
+                @if ($produksi->count() > 0)
+                    <div class="table-wrapper-production">
+                        <table class="table-production-modern">
+                            <thead>
                                 <tr>
-                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_produksi)->translatedFormat('d F Y') }}</td>
-                                    <td><strong>{{ number_format($item->hasil_produksi, 2) }}</strong></td>
-                                    <td><span class="badge-kuartal">Kuartal {{ $kuartal }}</span></td>
+                                    <th>Tanggal Produksi</th>
+                                    <th>Hasil Produksi (Ton)</th>
+                                    <th>Kuartal</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2"><strong>Total Hasil Produksi</strong></td>
-                                <td><strong class="total-production">{{ number_format($totalProduksi, 2) }} Ton</strong></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                @foreach ($produksi as $item)
+                                    @php
+                                        $bulan = \Carbon\Carbon::parse($item->tanggal_produksi)->month;
+                                        $kuartal = ceil($bulan / 3);
+                                    @endphp
+                                    <tr>
+                                        <td>{{ \Carbon\Carbon::parse($item->tanggal_produksi)->translatedFormat('d F Y') }}
+                                        </td>
+                                        <td><strong>{{ number_format($item->hasil_produksi, 2) }}</strong></td>
+                                        <td><span class="badge-kuartal">Kuartal {{ $kuartal }}</span></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2"><strong>Total Hasil Produksi</strong></td>
+                                    <td><strong class="total-production">{{ number_format($totalProduksi, 2) }}
+                                            Ton</strong></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 @else
-                <div class="empty-production">
-                    <i data-feather="inbox"></i>
-                    <p>Belum ada data produksi untuk tahun yang dipilih</p>
-                </div>
+                    <div class="empty-production">
+                        <i data-feather="inbox"></i>
+                        <p>Belum ada data produksi untuk tahun yang dipilih</p>
+                    </div>
                 @endif
             </div>
 
             <!-- Gallery Section -->
-            @if($lahan->galeri->count() > 0)
-            <div class="detail-card-modern gallery-section">
-                <div class="detail-card-header">
-                    <h3>
-                        <i data-feather="image"></i>
-                        Foto Lahan
-                    </h3>
-                </div>
-                <div class="gallery-modern" id="gallery">
-                    @foreach ($lahan->galeri as $foto)
-                        <x-galeri-card :data="$foto"/>
-                    @endforeach
-                </div>
-                @if ($lahan->galeri->count() > 6)
-                    <div class="gallery-toggle">
-                        <button class="btn-show-more" onclick="toggleGallery()" id="galleryToggle">
-                            <span id="galleryToggleText">Lihat Lebih Banyak</span>
-                            <i data-feather="chevron-down" id="galleryToggleIcon"></i>
-                        </button>
+            @if ($lahan->galeri->count() > 0)
+                <div class="detail-card-modern gallery-section">
+                    <div class="detail-card-header">
+                        <h3>
+                            <i data-feather="image"></i>
+                            Foto Lahan
+                        </h3>
                     </div>
-                @endif
-            </div>
+                    <div class="gallery-modern" id="gallery">
+                        @foreach ($lahan->galeri as $foto)
+                            <x-galeri-card :data="$foto" />
+                        @endforeach
+                    </div>
+                    @if ($lahan->galeri->count() > 6)
+                        <div class="gallery-toggle">
+                            <button class="btn-show-more" onclick="toggleGallery()" id="galleryToggle">
+                                <span id="galleryToggleText">Lihat Lebih Banyak</span>
+                                <i data-feather="chevron-down" id="galleryToggleIcon"></i>
+                            </button>
+                        </div>
+                    @endif
+                </div>
             @endif
         </div>
     </section>
@@ -217,32 +219,32 @@
                 <h2>Lahan <span class="text-gradient">Lainnya</span></h2>
                 <p>Jelajahi lahan jagung lainnya di Kabupaten Merauke</p>
             </div>
-            @if($semua->count() > 0)
-            <div class="data-grid-modern">
-                @foreach ($semua->take(4) as $lahanItem)
-                    <x-data-card :data="$lahanItem"/>
-                @endforeach
-            </div>
-            @if($semua->count() > 4)
-            <div class="view-more-wrapper">
-                <a href="{{ route('front.data') }}" class="btn-view-more">
-                    Lihat Semua Lahan
-                    <i data-feather="arrow-right"></i>
-                </a>
-            </div>
-            @endif
-            @else
-            <div class="empty-state-lahan">
-                <i data-feather="inbox"></i>
-                <h3>Tidak ada lahan lainnya</h3>
-                <p>Belum ada lahan jagung lainnya yang tersedia.</p>
-                <div style="margin-top: 1.5rem;">
-                    <a href="{{ route('front.data') }}" class="btn-view-more">
-                        Lihat Semua Lahan
-                        <i data-feather="arrow-right"></i>
-                    </a>
+            @if ($semua->count() > 0)
+                <div class="data-grid-modern">
+                    @foreach ($semua->take(4) as $lahanItem)
+                        <x-data-card :data="$lahanItem" />
+                    @endforeach
                 </div>
-            </div>
+                @if ($semua->count() > 4)
+                    <div class="view-more-wrapper">
+                        <a href="{{ route('front.data') }}" class="btn-view-more">
+                            Lihat Semua Lahan
+                            <i data-feather="arrow-right"></i>
+                        </a>
+                    </div>
+                @endif
+            @else
+                <div class="empty-state-lahan">
+                    <i data-feather="inbox"></i>
+                    <h3>Tidak ada lahan lainnya</h3>
+                    <p>Belum ada lahan jagung lainnya yang tersedia.</p>
+                    <div style="margin-top: 1.5rem;">
+                        <a href="{{ route('front.data') }}" class="btn-view-more">
+                            Lihat Semua Lahan
+                            <i data-feather="arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
             @endif
         </div>
     </section>
@@ -253,7 +255,7 @@
         <img id="lightbox-img" alt="Enlarged view of the selected image" />
     </div>
 
-    <x-footer/>
+    <x-footer />
 @endsection
 
 @push('after-styles')
@@ -318,7 +320,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            width: 100%;
+            padding: 0 5rem;
         }
 
         /* Responsive container untuk layar besar */
@@ -709,7 +711,7 @@
             }
 
             .section-header-modern h2 {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
         }
 
@@ -719,7 +721,7 @@
             }
 
             .section-header-modern h2 {
-                font-size: 3.5rem;
+                font-size: 2.5rem;
             }
 
             .section-header-modern p {
@@ -989,7 +991,7 @@
 
         .view-more-wrapper {
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .btn-view-more {
@@ -998,7 +1000,7 @@
             gap: 0.5rem;
             padding: 1rem 2rem;
             background: linear-gradient(135deg, #228b22 0%, #2d5a2d 100%);
-            color: #fff;
+            color: #fff !important;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
@@ -1208,7 +1210,7 @@
 
 @push('after-scripts')
     <script>
-        var activeInfoWindow = null; 
+        var activeInfoWindow = null;
 
         function initMap() {
             var lahan = {
@@ -1219,18 +1221,21 @@
                 longitude: {{ $lahan->longitude }}
             };
 
-            var lokasi = { lat: lahan.latitude, lng: lahan.longitude };
+            var lokasi = {
+                lat: lahan.latitude,
+                lng: lahan.longitude
+            };
 
             var map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 15,
                 center: lokasi,
-                styles: [
-                    {
-                        featureType: "poi",
-                        elementType: "labels",
-                        stylers: [{ visibility: "off" }]
-                    }
-                ]
+                styles: [{
+                    featureType: "poi",
+                    elementType: "labels",
+                    stylers: [{
+                        visibility: "off"
+                    }]
+                }]
             });
 
             var marker = new google.maps.Marker({
@@ -1238,16 +1243,17 @@
                 map: map,
                 title: lahan.name,
                 icon: {
-                    url: "{{ asset('img/corn-cob.png') }}", 
+                    url: "{{ asset('img/corn-cob.png') }}",
                     scaledSize: new google.maps.Size(40, 40),
-                } 
+                }
             });
 
             var contentString =
                 '<div class="card-google-map">' +
-                    '<h5 class="card-title-google-map">' + lahan.name + '</h5>' +
-                    '<p class="card-text-google-map">' + lahan.alamat + '</p>' +
-                    '<a href="https://www.google.com/maps?q=' + lahan.latitude + ',' + lahan.longitude + '" target="_blank" class="card-button-google-map">Lihat di Google Maps</a>' +
+                '<h5 class="card-title-google-map">' + lahan.name + '</h5>' +
+                '<p class="card-text-google-map">' + lahan.alamat + '</p>' +
+                '<a href="https://www.google.com/maps?q=' + lahan.latitude + ',' + lahan.longitude +
+                '" target="_blank" class="card-button-google-map">Lihat di Google Maps</a>' +
                 '</div>';
 
             var infowindow = new google.maps.InfoWindow({
@@ -1275,7 +1281,7 @@
             const toggleBtn = document.getElementById('galleryToggle');
             const toggleText = document.getElementById('galleryToggleText');
             const toggleIcon = document.getElementById('galleryToggleIcon');
-            
+
             if (gallery.classList.contains('hidden-items')) {
                 gallery.classList.remove('hidden-items');
                 toggleText.textContent = 'Lihat Lebih Sedikit';
@@ -1285,7 +1291,7 @@
                 toggleText.textContent = 'Lihat Lebih Banyak';
                 toggleBtn.classList.remove('expanded');
             }
-            
+
             if (typeof feather !== 'undefined') {
                 feather.replace();
             }
@@ -1300,9 +1306,6 @@
             }
         });
     </script>
-    <script
-        async
-        defer
-        src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_API_KEY')}}&callback=initMap"
-    ></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap"></script>
 @endpush
