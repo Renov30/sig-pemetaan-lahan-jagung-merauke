@@ -1,5 +1,5 @@
 @extends('front.layouts.app')
-@section('title', 'Peta')
+@section('title', 'Peta - Peta Jagung')
 @section('content')
     <x-nav />
 
@@ -7,7 +7,7 @@
     <section class="peta-hero-modern">
         <div class="peta-hero-overlay"></div>
         <div class="peta-hero-content">
-            <div class="peta-hero-text scroll-animate fade-in-up">
+            <div class="peta-hero-text scroll-animate fade-only">
                 <h1 class="peta-hero-title">
                     Peta <span class="text-gradient">Lahan</span>
                 </h1>
@@ -367,6 +367,18 @@
             transform: translate(0, 0) scale(1);
         }
 
+        /* Fade-only animation (tanpa transform) */
+        .scroll-animate.fade-only {
+            opacity: 0;
+            transform: none;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .scroll-animate.fade-only.animated {
+            opacity: 1;
+            transform: none;
+        }
+
         /* Delay classes untuk staggered animation */
         .scroll-animate.delay-100 {
             transition-delay: 0.1s;
@@ -462,7 +474,7 @@
         // Scroll Animation dengan Intersection Observer
         document.addEventListener('DOMContentLoaded', function() {
             const animatedElements = document.querySelectorAll('.scroll-animate');
-            
+
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'

@@ -1,5 +1,5 @@
 @extends('front.layouts.app')
-@section('title', 'Data')
+@section('title', 'Data - Peta Jagung')
 @section('content')
     <x-nav />
 
@@ -7,7 +7,7 @@
     <section class="data-hero-modern">
         <div class="data-hero-overlay"></div>
         <div class="data-hero-content">
-            <div class="data-hero-text scroll-animate fade-in-up">
+            <div class="data-hero-text scroll-animate fade-only">
                 <h1 class="data-hero-title">
                     Data Lahan <span class="text-gradient">Jagung</span>
                 </h1>
@@ -22,7 +22,7 @@
     <section class="data-modern">
         <div class="container">
             <!-- Search and Filter Bar -->
-            <div class="data-controls scroll-animate fade-in-up delay-100">
+            <div class="data-controls scroll-animate fade-only delay-100">
                 <form action="{{ route('front.data') }}" method="GET" class="search-modern">
                     <div class="search-wrapper">
                         <i data-feather="search"></i>
@@ -903,6 +903,18 @@
             transform: translate(0, 0) scale(1);
         }
 
+        /* Fade-only animation (tanpa transform) */
+        .scroll-animate.fade-only {
+            opacity: 0;
+            transform: none;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .scroll-animate.fade-only.animated {
+            opacity: 1;
+            transform: none;
+        }
+
         /* Delay classes untuk staggered animation */
         .scroll-animate.delay-100 {
             transition-delay: 0.1s;
@@ -992,7 +1004,7 @@
         // Scroll Animation dengan Intersection Observer
         document.addEventListener('DOMContentLoaded', function() {
             const animatedElements = document.querySelectorAll('.scroll-animate');
-            
+
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'

@@ -1,5 +1,5 @@
 @extends('front.layouts.app')
-@section('title', 'Home')
+@section('title', 'Home - Peta Jagung')
 @section('content')
     <x-nav />
 
@@ -7,7 +7,7 @@
     <section class="hero-modern" id="home">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <div class="hero-text">
+            <div class="hero-text scroll-animate fade-only">
                 <h1 class="hero-title">
                     Selamat Datang di <span class="text-gradient">Peta Jagung</span>
                 </h1>
@@ -120,12 +120,12 @@
     <!-- Visi Misi Section -->
     <section class="visi-misi-modern">
         <div class="container">
-            <div class="section-header scroll-animate fade-in-up">
+            <div class="section-header scroll-animate fade-only">
                 <span class="section-tag">Tentang Kami</span>
                 <h2 class="section-title">Visi & <span class="text-gradient">Misi</span></h2>
             </div>
 
-            <div class="visi-card scroll-animate fade-in-up delay-100">
+            <div class="visi-card">
                 <div class="visi-header">
                     <div class="visi-icon">
                         <i data-feather="eye"></i>
@@ -139,14 +139,14 @@
             </div>
 
             <div class="misi-grid">
-                <div class="misi-image scroll-animate fade-in-left delay-200">
+                <div class="misi-image">
                     <div class="image-wrapper">
                         <img src="{{ asset('img/profil-kepala.jpg') }}" alt="Profil Kepala" />
                         <div class="image-overlay"></div>
                     </div>
                 </div>
 
-                <div class="misi-content scroll-animate fade-in-right delay-300">
+                <div class="misi-content">
                     <div class="misi-header">
                         <div class="misi-icon">
                             <i data-feather="compass"></i>
@@ -154,37 +154,37 @@
                         <h3>Misi</h3>
                     </div>
                     <div class="misi-list">
-                        <div class="misi-item scroll-animate fade-in-up delay-100">
+                        <div class="misi-item">
                             <div class="misi-number">1</div>
                             <p>Peningkatan stabilitas wilayah dan peran sebagai daerah perbatasan</p>
                         </div>
-                        <div class="misi-item scroll-animate fade-in-up delay-200">
+                        <div class="misi-item">
                             <div class="misi-number">2</div>
                             <p>Peningkatan kapasitas kelembagaan pemerintahan dan wilayah pengembangan pada tingkat kampung,
                                 distrik dan kabupaten</p>
                         </div>
-                        <div class="misi-item scroll-animate fade-in-up delay-300">
+                        <div class="misi-item">
                             <div class="misi-number">3</div>
                             <p>Pembentukan kota madya dan provinsi Papua Selatan</p>
                         </div>
-                        <div class="misi-item scroll-animate fade-in-up delay-400">
+                        <div class="misi-item">
                             <div class="misi-number">4</div>
                             <p>Pembangunan pertanian yang berorientasi pada perwujudan lumbung pangan untuk ketahanan pangan
                                 di tingkat nasional maupun internasional</p>
                         </div>
-                        <div class="misi-item scroll-animate fade-in-up delay-100">
+                        <div class="misi-item">
                             <div class="misi-number">5</div>
                             <p>Penguatan ekonomi daerah dan peluang investasi</p>
                         </div>
-                        <div class="misi-item scroll-animate fade-in-up delay-200">
+                        <div class="misi-item">
                             <div class="misi-number">6</div>
                             <p>Peningkatan kualitas sumber daya manusia sesuai pengembangan potensi daerah</p>
                         </div>
-                        <div class="misi-item scroll-animate fade-in-up delay-300">
+                        <div class="misi-item">
                             <div class="misi-number">7</div>
                             <p>Peningkatan kualitas pelayanan kesehatan sampai ke tingkat kampung</p>
                         </div>
-                        <div class="misi-item scroll-animate fade-in-up delay-400">
+                        <div class="misi-item">
                             <div class="misi-number">8</div>
                             <p>Penguatan identitas budaya dan kearifan lokal</p>
                         </div>
@@ -797,7 +797,8 @@
         /* Scroll Animation Styles */
         .scroll-animate {
             opacity: 0;
-            transition: all 0.8s ease-out;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
         }
 
         .scroll-animate.fade-in {
@@ -833,6 +834,19 @@
         .scroll-animate.animated {
             opacity: 1;
             transform: translate(0, 0) scale(1);
+            will-change: auto;
+        }
+
+        /* Fade-only animation (tanpa transform) */
+        .scroll-animate.fade-only {
+            opacity: 0;
+            transform: none;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .scroll-animate.fade-only.animated {
+            opacity: 1;
+            transform: none;
         }
 
         /* Delay classes untuk staggered animation */
@@ -863,7 +877,7 @@
         // Scroll Animation dengan Intersection Observer
         document.addEventListener('DOMContentLoaded', function() {
             const animatedElements = document.querySelectorAll('.scroll-animate');
-            
+
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'

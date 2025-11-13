@@ -7,7 +7,7 @@
     <section class="detail-hero-modern">
         <div class="detail-hero-overlay"></div>
         <div class="detail-hero-content">
-            <div class="detail-hero-text scroll-animate fade-in-up">
+            <div class="detail-hero-text scroll-animate fade-only">
                 <h1 class="detail-hero-title">
                     Detail <span class="text-gradient">Lahan</span>
                 </h1>
@@ -1277,6 +1277,18 @@
         .scroll-animate.animated {
             opacity: 1;
             transform: translate(0, 0) scale(1);
+        }
+
+        /* Fade-only animation (tanpa transform) */
+        .scroll-animate.fade-only {
+            opacity: 0;
+            transform: none;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .scroll-animate.fade-only.animated {
+            opacity: 1;
+            transform: none;
         }
 
         /* Delay classes untuk staggered animation */
