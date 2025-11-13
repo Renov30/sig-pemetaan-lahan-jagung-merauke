@@ -7,7 +7,7 @@
     <section class="detail-hero-modern">
         <div class="detail-hero-overlay"></div>
         <div class="detail-hero-content">
-            <div class="detail-hero-text">
+            <div class="detail-hero-text scroll-animate fade-in-up">
                 <h1 class="detail-hero-title">
                     Detail <span class="text-gradient">Lahan</span>
                 </h1>
@@ -24,7 +24,7 @@
             <!-- Main Content Grid -->
             <div class="detail-grid">
                 <!-- Left Column: Map -->
-                <div class="detail-map-section">
+                <div class="detail-map-section scroll-animate fade-in-left delay-100">
                     <div class="detail-card-modern">
                         <div class="detail-card-header">
                             <h3>
@@ -39,7 +39,7 @@
                 </div>
 
                 <!-- Right Column: Info -->
-                <div class="detail-info-section">
+                <div class="detail-info-section scroll-animate fade-in-right delay-200">
                     <div class="detail-card-modern">
                         <div class="detail-card-header">
                             <h3>
@@ -48,7 +48,7 @@
                             </h3>
                         </div>
                         <div class="detail-info-grid">
-                            <div class="info-item-modern">
+                            <div class="info-item-modern scroll-animate fade-in-up delay-100">
                                 <div class="info-icon">
                                     <i data-feather="map-pin"></i>
                                 </div>
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
 
-                            <div class="info-item-modern">
+                            <div class="info-item-modern scroll-animate fade-in-up delay-200">
                                 <div class="info-icon">
                                     <i data-feather="user"></i>
                                 </div>
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
 
-                            <div class="info-item-modern">
+                            <div class="info-item-modern scroll-animate fade-in-up delay-300">
                                 <div class="info-icon">
                                     <i data-feather="layers"></i>
                                 </div>
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
 
-                            <div class="info-item-modern">
+                            <div class="info-item-modern scroll-animate fade-in-up delay-100">
                                 <div class="info-icon">
                                     <i data-feather="navigation"></i>
                                 </div>
@@ -88,7 +88,7 @@
                                 </div>
                             </div>
 
-                            <div class="info-item-modern">
+                            <div class="info-item-modern scroll-animate fade-in-up delay-200">
                                 <div class="info-icon">
                                     <i data-feather="map-pin"></i>
                                 </div>
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
 
-                            <div class="info-item-modern">
+                            <div class="info-item-modern scroll-animate fade-in-up delay-300">
                                 <div class="info-icon">
                                     <i data-feather="phone"></i>
                                 </div>
@@ -108,7 +108,7 @@
                                 </div>
                             </div>
 
-                            <div class="info-item-modern">
+                            <div class="info-item-modern scroll-animate fade-in-up delay-400">
                                 <div class="info-icon">
                                     <i data-feather="compass"></i>
                                 </div>
@@ -123,7 +123,7 @@
             </div>
 
             <!-- Data Produksi Section -->
-            <div class="detail-card-modern production-section">
+            <div class="detail-card-modern production-section scroll-animate fade-in-up delay-300">
                 <div class="production-header">
                     <div class="production-title">
                         <i data-feather="trending-up"></i>
@@ -187,7 +187,7 @@
 
             <!-- Gallery Section -->
             @if ($lahan->galeri->count() > 0)
-                <div class="detail-card-modern gallery-section">
+                <div class="detail-card-modern gallery-section scroll-animate fade-in-up delay-400">
                     <div class="detail-card-header">
                         <h3>
                             <i data-feather="image"></i>
@@ -215,7 +215,7 @@
     <!-- Lahan Lainnya Section -->
     <section class="other-lahan-modern">
         <div class="container">
-            <div class="section-header-modern">
+            <div class="section-header-modern scroll-animate fade-in-up">
                 <h2>Lahan <span class="text-gradient">Lainnya</span></h2>
                 <p>Jelajahi lahan jagung lainnya di Kabupaten Merauke</p>
             </div>
@@ -226,7 +226,7 @@
                     @endforeach
                 </div>
                 @if ($semua->count() > 4)
-                    <div class="view-more-wrapper">
+                    <div class="view-more-wrapper scroll-animate fade-in-up delay-400">
                         <a href="{{ route('front.data') }}" class="btn-view-more">
                             Lihat Semua Lahan
                             <i data-feather="arrow-right"></i>
@@ -234,7 +234,7 @@
                     </div>
                 @endif
             @else
-                <div class="empty-state-lahan">
+                <div class="empty-state-lahan scroll-animate fade-in-up delay-200">
                     <i data-feather="inbox"></i>
                     <h3>Tidak ada lahan lainnya</h3>
                     <p>Belum ada lahan jagung lainnya yang tersedia.</p>
@@ -1237,30 +1237,92 @@
                 gap: 2rem;
             }
         }
+
+        /* Scroll Animation Styles */
+        .scroll-animate {
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-animate.fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .scroll-animate.fade-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .scroll-animate.fade-in-down {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+
+        .scroll-animate.fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .scroll-animate.fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .scroll-animate.scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .scroll-animate.animated {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        /* Delay classes untuk staggered animation */
+        .scroll-animate.delay-100 {
+            transition-delay: 0.1s;
+        }
+
+        .scroll-animate.delay-200 {
+            transition-delay: 0.2s;
+        }
+
+        .scroll-animate.delay-300 {
+            transition-delay: 0.3s;
+        }
+
+        .scroll-animate.delay-400 {
+            transition-delay: 0.4s;
+        }
+
+        .scroll-animate.delay-500 {
+            transition-delay: 0.5s;
+        }
     </style>
 @endpush
 
 @push('after-scripts')
-    <script>
-        var activeInfoWindow = null;
+                <script>
+                    var activeInfoWindow = null; 
 
-        function initMap() {
-            var lahan = {
-                name: "{{ $lahan->name }}",
-                alamat: "{{ $lahan->alamat }}",
-                slug: "{{ $lahan->slug }}",
-                latitude: {{ $lahan->latitude }},
-                longitude: {{ $lahan->longitude }}
-            };
+                    function initMap() {
+                        var lahan = {
+                            name: "{{ $lahan->name }}",
+                            alamat: "{{ $lahan->alamat }}",
+                            slug: "{{ $lahan->slug }}",
+                            latitude: {{ $lahan->latitude }},
+                            longitude: {{ $lahan->longitude }}
+                        };
 
             var lokasi = {
                 lat: lahan.latitude,
                 lng: lahan.longitude
             };
 
-            var map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 15,
-                center: lokasi,
+                        var map = new google.maps.Map(document.getElementById("map"), {
+                            zoom: 15,
+                            center: lokasi,
                 styles: [{
                     featureType: "poi",
                     elementType: "labels",
@@ -1268,45 +1330,45 @@
                         visibility: "off"
                     }]
                 }]
-            });
+                        });
 
-            var marker = new google.maps.Marker({
-                position: lokasi,
-                map: map,
-                title: lahan.name,
-                icon: {
-                    url: "{{ asset('img/corn-cob.png') }}",
+                        var marker = new google.maps.Marker({
+                            position: lokasi,
+                            map: map,
+                            title: lahan.name,
+                            icon: {
+                                url: "{{ asset('img/corn-cob.png') }}", 
                     scaledSize: new google.maps.Size(40, 40),
-                }
-            });
-
-            var contentString =
-                '<div class="card-google-map">' +
-                '<h5 class="card-title-google-map">' + lahan.name + '</h5>' +
-                '<p class="card-text-google-map">' + lahan.alamat + '</p>' +
+                            } 
+                        });
+                        
+                        var contentString =
+                            '<div class="card-google-map">' +
+                                '<h5 class="card-title-google-map">' + lahan.name + '</h5>' +
+                                '<p class="card-text-google-map">' + lahan.alamat + '</p>' +
                 '<a href="https://www.google.com/maps?q=' + lahan.latitude + ',' + lahan.longitude +
                 '" target="_blank" class="card-button-google-map">Lihat di Google Maps</a>' +
-                '</div>';
+                            '</div>';
 
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
+                        var infowindow = new google.maps.InfoWindow({
+                            content: contentString
+                        });
 
-            marker.addListener('click', function() {
-                if (activeInfoWindow) {
-                    activeInfoWindow.close();
-                }
-                infowindow.open(map, marker);
-                activeInfoWindow = infowindow;
-            });
+                        marker.addListener('click', function() {
+                            if (activeInfoWindow) {
+                                activeInfoWindow.close();
+                            }
+                            infowindow.open(map, marker);
+                            activeInfoWindow = infowindow;
+                        });
 
-            google.maps.event.addListener(map, 'click', function() {
-                if (activeInfoWindow) {
-                    activeInfoWindow.close();
-                    activeInfoWindow = null;
-                }
-            });
-        }
+                        google.maps.event.addListener(map, 'click', function() {
+                            if (activeInfoWindow) {
+                                activeInfoWindow.close();
+                                activeInfoWindow = null;
+                            }
+                        });
+                    }
 
         function toggleGallery() {
             const gallery = document.getElementById('gallery');
@@ -1336,6 +1398,29 @@
             if (gallery && galleryCount > 6) {
                 gallery.classList.add('hidden-items');
             }
+        });
+
+        // Scroll Animation dengan Intersection Observer
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.scroll-animate');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
         });
     </script>
     <script async defer

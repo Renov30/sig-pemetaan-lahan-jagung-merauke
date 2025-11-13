@@ -7,7 +7,7 @@
     <section class="data-hero-modern">
         <div class="data-hero-overlay"></div>
         <div class="data-hero-content">
-            <div class="data-hero-text">
+            <div class="data-hero-text scroll-animate fade-in-up">
                 <h1 class="data-hero-title">
                     Data Lahan <span class="text-gradient">Jagung</span>
                 </h1>
@@ -22,7 +22,7 @@
     <section class="data-modern">
         <div class="container">
             <!-- Search and Filter Bar -->
-            <div class="data-controls">
+            <div class="data-controls scroll-animate fade-in-up delay-100">
                 <form action="{{ route('front.data') }}" method="GET" class="search-modern">
                     <div class="search-wrapper">
                         <i data-feather="search"></i>
@@ -861,6 +861,68 @@
                 min-width: 600px;
             }
         }
+
+        /* Scroll Animation Styles */
+        .scroll-animate {
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-animate.fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .scroll-animate.fade-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .scroll-animate.fade-in-down {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+
+        .scroll-animate.fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .scroll-animate.fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .scroll-animate.scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .scroll-animate.animated {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        /* Delay classes untuk staggered animation */
+        .scroll-animate.delay-100 {
+            transition-delay: 0.1s;
+        }
+
+        .scroll-animate.delay-200 {
+            transition-delay: 0.2s;
+        }
+
+        .scroll-animate.delay-300 {
+            transition-delay: 0.3s;
+        }
+
+        .scroll-animate.delay-400 {
+            transition-delay: 0.4s;
+        }
+
+        .scroll-animate.delay-500 {
+            transition-delay: 0.5s;
+        }
     </style>
 @endpush
 
@@ -925,6 +987,29 @@
                     switchView('table');
                 });
             }
+        });
+
+        // Scroll Animation dengan Intersection Observer
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.scroll-animate');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
         });
     </script>
 @endpush

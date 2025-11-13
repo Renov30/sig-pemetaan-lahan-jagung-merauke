@@ -73,7 +73,7 @@
     <!-- About Section -->
     <section class="about-modern" id="about">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header scroll-animate fade-in-up">
                 <span class="section-tag">Tentang Aplikasi</span>
                 <h2 class="section-title">Peta <span class="text-gradient">Jagung</span></h2>
                 <p class="section-description">
@@ -83,7 +83,7 @@
 
             <div class="about-grid">
                 <div class="about-content">
-                    <div class="content-card">
+                    <div class="content-card scroll-animate fade-in-left delay-100">
                         <div class="card-icon">
                             <i data-feather="info"></i>
                         </div>
@@ -94,7 +94,7 @@
                         </p>
                     </div>
 
-                    <div class="content-card">
+                    <div class="content-card scroll-animate fade-in-left delay-200">
                         <div class="card-icon">
                             <i data-feather="target"></i>
                         </div>
@@ -107,7 +107,7 @@
                     </div>
                 </div>
 
-                <div class="about-image">
+                <div class="about-image scroll-animate fade-in-right delay-300">
                     <div class="image-wrapper">
                         <img src="{{ asset('img/tentang-kami.jpg') }}" alt="Tentang Kami" />
                         <div class="image-overlay"></div>
@@ -120,12 +120,12 @@
     <!-- Visi Misi Section -->
     <section class="visi-misi-modern">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header scroll-animate fade-in-up">
                 <span class="section-tag">Tentang Kami</span>
                 <h2 class="section-title">Visi & <span class="text-gradient">Misi</span></h2>
             </div>
 
-            <div class="visi-card">
+            <div class="visi-card scroll-animate fade-in-up delay-100">
                 <div class="visi-header">
                     <div class="visi-icon">
                         <i data-feather="eye"></i>
@@ -139,14 +139,14 @@
             </div>
 
             <div class="misi-grid">
-                <div class="misi-image">
+                <div class="misi-image scroll-animate fade-in-left delay-200">
                     <div class="image-wrapper">
                         <img src="{{ asset('img/profil-kepala.jpg') }}" alt="Profil Kepala" />
                         <div class="image-overlay"></div>
                     </div>
                 </div>
 
-                <div class="misi-content">
+                <div class="misi-content scroll-animate fade-in-right delay-300">
                     <div class="misi-header">
                         <div class="misi-icon">
                             <i data-feather="compass"></i>
@@ -154,37 +154,37 @@
                         <h3>Misi</h3>
                     </div>
                     <div class="misi-list">
-                        <div class="misi-item">
+                        <div class="misi-item scroll-animate fade-in-up delay-100">
                             <div class="misi-number">1</div>
                             <p>Peningkatan stabilitas wilayah dan peran sebagai daerah perbatasan</p>
                         </div>
-                        <div class="misi-item">
+                        <div class="misi-item scroll-animate fade-in-up delay-200">
                             <div class="misi-number">2</div>
                             <p>Peningkatan kapasitas kelembagaan pemerintahan dan wilayah pengembangan pada tingkat kampung,
                                 distrik dan kabupaten</p>
                         </div>
-                        <div class="misi-item">
+                        <div class="misi-item scroll-animate fade-in-up delay-300">
                             <div class="misi-number">3</div>
                             <p>Pembentukan kota madya dan provinsi Papua Selatan</p>
                         </div>
-                        <div class="misi-item">
+                        <div class="misi-item scroll-animate fade-in-up delay-400">
                             <div class="misi-number">4</div>
                             <p>Pembangunan pertanian yang berorientasi pada perwujudan lumbung pangan untuk ketahanan pangan
                                 di tingkat nasional maupun internasional</p>
                         </div>
-                        <div class="misi-item">
+                        <div class="misi-item scroll-animate fade-in-up delay-100">
                             <div class="misi-number">5</div>
                             <p>Penguatan ekonomi daerah dan peluang investasi</p>
                         </div>
-                        <div class="misi-item">
+                        <div class="misi-item scroll-animate fade-in-up delay-200">
                             <div class="misi-number">6</div>
                             <p>Peningkatan kualitas sumber daya manusia sesuai pengembangan potensi daerah</p>
                         </div>
-                        <div class="misi-item">
+                        <div class="misi-item scroll-animate fade-in-up delay-300">
                             <div class="misi-number">7</div>
                             <p>Peningkatan kualitas pelayanan kesehatan sampai ke tingkat kampung</p>
                         </div>
-                        <div class="misi-item">
+                        <div class="misi-item scroll-animate fade-in-up delay-400">
                             <div class="misi-number">8</div>
                             <p>Penguatan identitas budaya dan kearifan lokal</p>
                         </div>
@@ -197,7 +197,7 @@
     <!-- Stats Section -->
     <section class="stats-modern" id="contact">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header scroll-animate fade-in-up">
                 <span class="section-tag">Informasi Terkini</span>
                 <h2 class="section-title">Data <span class="text-gradient">Statistik</span></h2>
                 <p class="section-description">
@@ -207,7 +207,7 @@
             </div>
 
             <div class="stats-grid">
-                <div class="stat-modern-card">
+                <div class="stat-modern-card scroll-animate fade-in-up delay-100">
                     <div class="stat-modern-icon">
                         <i data-feather="map"></i>
                     </div>
@@ -218,7 +218,7 @@
                     <div class="stat-modern-wave"></div>
                 </div>
 
-                <div class="stat-modern-card">
+                <div class="stat-modern-card scroll-animate fade-in-up delay-200">
                     <div class="stat-modern-icon">
                         <i data-feather="map-pin"></i>
                     </div>
@@ -229,7 +229,7 @@
                     <div class="stat-modern-wave"></div>
                 </div>
 
-                <div class="stat-modern-card">
+                <div class="stat-modern-card scroll-animate fade-in-up delay-300">
                     <div class="stat-modern-icon">
                         <i data-feather="layers"></i>
                     </div>
@@ -240,7 +240,7 @@
                     <div class="stat-modern-wave"></div>
                 </div>
 
-                <div class="stat-modern-card">
+                <div class="stat-modern-card scroll-animate fade-in-up delay-400">
                     <div class="stat-modern-icon">
                         <i data-feather="trending-up"></i>
                     </div>
@@ -793,5 +793,94 @@
                 top: 0;
             }
         }
+
+        /* Scroll Animation Styles */
+        .scroll-animate {
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-animate.fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .scroll-animate.fade-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .scroll-animate.fade-in-down {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+
+        .scroll-animate.fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .scroll-animate.fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .scroll-animate.scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .scroll-animate.animated {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        /* Delay classes untuk staggered animation */
+        .scroll-animate.delay-100 {
+            transition-delay: 0.1s;
+        }
+
+        .scroll-animate.delay-200 {
+            transition-delay: 0.2s;
+        }
+
+        .scroll-animate.delay-300 {
+            transition-delay: 0.3s;
+        }
+
+        .scroll-animate.delay-400 {
+            transition-delay: 0.4s;
+        }
+
+        .scroll-animate.delay-500 {
+            transition-delay: 0.5s;
+        }
     </style>
+@endpush
+
+@push('after-scripts')
+    <script>
+        // Scroll Animation dengan Intersection Observer
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.scroll-animate');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
 @endpush

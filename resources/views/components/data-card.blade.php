@@ -1,4 +1,4 @@
-<a href="{{route('front.detail', $data->slug)}}" class="card-link-modern">
+<a href="{{route('front.detail', $data->slug)}}" class="card-link-modern scroll-animate fade-in-up">
     <div class="card-modern">
         <div class="card-image-wrapper">
             <img src="{{Storage::url($data->thumbnail)}}" alt="{{$data->name}}" />
