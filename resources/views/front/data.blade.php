@@ -307,6 +307,7 @@
             background-repeat: no-repeat;
             background-position: right 1rem center;
             padding-right: 3rem;
+            min-width: 180px;
         }
 
         .select-modern:hover {
@@ -866,6 +867,8 @@
             .select-modern {
                 font-size: 0.9rem;
                 padding: 0.65rem 1.3rem;
+                padding-right: 3.2rem;
+                min-width: 190px;
             }
 
             .toggle-view-btn {
@@ -912,6 +915,20 @@
             }
         }
 
+        /* Responsive untuk resolusi 720p (1280px) */
+        @media (min-width: 1024px) and (max-width: 1366px) {
+            .select-modern {
+                min-width: 200px;
+                padding-right: 3.5rem;
+                padding-left: 1.8rem;
+                background-position: right 1.2rem center;
+            }
+
+            .filter-controls {
+                gap: 1.2rem;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .data-hero-title {
@@ -940,6 +957,11 @@
 
             .table-modern {
                 min-width: 600px;
+            }
+
+            .select-modern {
+                min-width: 100%;
+                width: 100%;
             }
         }
 
