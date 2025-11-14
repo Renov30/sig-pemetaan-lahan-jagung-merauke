@@ -765,6 +765,83 @@
             }
         }
 
+        /* Responsive untuk Laptop (1024px - 1919px) */
+        @media (min-width: 1024px) and (max-width: 1919px) {
+            .navbar .navbar-logo {
+                font-size: 1.3rem;
+            }
+
+            .navbar .navbar-nav a {
+                font-size: 0.9rem;
+            }
+
+            .navbar .navbar-extra .login {
+                font-size: 0.85rem;
+                padding: 0.7rem 1.8rem;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .hero-description {
+                font-size: 1.05rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .section-description {
+                font-size: 0.95rem;
+            }
+
+            .about-card h3 {
+                font-size: 1.35rem;
+            }
+
+            .about-card p {
+                font-size: 0.9rem;
+            }
+
+            .visi-text {
+                font-size: 0.95rem;
+            }
+
+            .misi-header h3 {
+                font-size: 1.75rem;
+            }
+
+            .misi-item p {
+                font-size: 0.9rem;
+            }
+
+            .stat-modern-content h3 {
+                font-size: 2.2rem;
+            }
+
+            .stat-modern-content p {
+                font-size: 0.95rem;
+            }
+
+            .stat-info h3 {
+                font-size: 1.75rem;
+            }
+
+            .stat-info p {
+                font-size: 0.85rem;
+            }
+
+            .btn {
+                font-size: 0.9rem;
+                padding: 0.9rem 1.8rem;
+            }
+
+            .section-tag {
+                font-size: 0.85rem;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title {

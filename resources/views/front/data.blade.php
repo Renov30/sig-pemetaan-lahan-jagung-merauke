@@ -831,6 +831,87 @@
             background-clip: text;
         }
 
+        /* Responsive untuk Laptop (1024px - 1919px) */
+        @media (min-width: 1024px) and (max-width: 1919px) {
+            .navbar .navbar-logo {
+                font-size: 1.3rem;
+            }
+
+            .navbar .navbar-nav a {
+                font-size: 0.9rem;
+            }
+
+            .navbar .navbar-extra .login {
+                font-size: 0.85rem;
+                padding: 0.7rem 1.8rem;
+            }
+
+            .data-hero-title {
+                font-size: 2.5rem;
+            }
+
+            .data-hero-description {
+                font-size: 1.05rem;
+            }
+
+            .search-wrapper input {
+                font-size: 0.9rem;
+            }
+
+            .search-btn {
+                font-size: 0.9rem;
+                padding: 0.55rem 1.3rem;
+            }
+
+            .select-modern {
+                font-size: 0.9rem;
+                padding: 0.65rem 1.3rem;
+            }
+
+            .toggle-view-btn {
+                font-size: 0.9rem;
+                padding: 0.55rem 1rem;
+            }
+
+            .card-title-modern {
+                font-size: 1.35rem;
+            }
+
+            .card-info-item {
+                font-size: 0.9rem;
+            }
+
+            .card-action {
+                font-size: 0.9rem;
+            }
+
+            .table-modern th {
+                font-size: 0.9rem;
+            }
+
+            .table-modern td {
+                font-size: 0.9rem;
+            }
+
+            .table-action-btn {
+                font-size: 0.85rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .pagination-modern nav a,
+            .pagination-modern nav span:not([aria-disabled="true"]) {
+                font-size: 0.9rem;
+            }
+
+            .empty-state h3 {
+                font-size: 1.35rem;
+            }
+
+            .empty-state p {
+                font-size: 0.9rem;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .data-hero-title {

@@ -300,6 +300,59 @@
             background-clip: text;
         }
 
+        /* Responsive untuk Laptop (1024px - 1919px) */
+        @media (min-width: 1024px) and (max-width: 1919px) {
+            .navbar .navbar-logo {
+                font-size: 1.3rem;
+            }
+
+            .navbar .navbar-nav a {
+                font-size: 0.9rem;
+            }
+
+            .navbar .navbar-extra .login {
+                font-size: 0.85rem;
+                padding: 0.7rem 1.8rem;
+            }
+
+            .peta-hero-title {
+                font-size: 2.5rem;
+            }
+
+            .peta-hero-description {
+                font-size: 1.05rem;
+            }
+
+            .select-modern {
+                font-size: 0.9rem;
+                padding: 0.65rem 1.3rem;
+            }
+
+            .map-info-card h3 {
+                font-size: 1.35rem;
+            }
+
+            .map-info-card p {
+                font-size: 0.9rem;
+            }
+
+            .map-info-item {
+                font-size: 0.9rem;
+            }
+
+            .card-title-google-map {
+                font-size: 1.1rem;
+            }
+
+            .card-text-google-map {
+                font-size: 0.9rem;
+            }
+
+            .card-button-google-map {
+                font-size: 0.85rem;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .peta-hero-title {

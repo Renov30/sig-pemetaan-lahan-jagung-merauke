@@ -1182,6 +1182,92 @@
             }
         }
 
+        /* Responsive untuk Laptop (1024px - 1919px) */
+        @media (min-width: 1024px) and (max-width: 1919px) {
+            .navbar .navbar-logo {
+                font-size: 1.3rem;
+            }
+
+            .navbar .navbar-nav a {
+                font-size: 0.9rem;
+            }
+
+            .navbar .navbar-extra .login {
+                font-size: 0.85rem;
+                padding: 0.7rem 1.8rem;
+            }
+
+            .detail-hero-title {
+                font-size: 2.5rem;
+            }
+
+            .detail-hero-description {
+                font-size: 1.05rem;
+            }
+
+            .detail-card-header h3 {
+                font-size: 1.35rem;
+            }
+
+            .info-label {
+                font-size: 0.9rem;
+            }
+
+            .info-value {
+                font-size: 0.95rem;
+            }
+
+            .production-header h3 {
+                font-size: 1.35rem;
+            }
+
+            .select-year {
+                font-size: 0.9rem;
+                padding: 0.65rem 1.3rem;
+            }
+
+            .table-production-modern th {
+                font-size: 0.9rem;
+            }
+
+            .table-production-modern td {
+                font-size: 0.9rem;
+            }
+
+            .section-header-modern h2 {
+                font-size: 2.2rem;
+            }
+
+            .section-header-modern p {
+                font-size: 1rem;
+            }
+
+            .card-title-modern {
+                font-size: 1.35rem;
+            }
+
+            .card-info-item {
+                font-size: 0.9rem;
+            }
+
+            .card-action {
+                font-size: 0.9rem;
+            }
+
+            .btn-show-more {
+                font-size: 0.9rem;
+                padding: 0.65rem 1.3rem;
+            }
+
+            .empty-state-lahan h3 {
+                font-size: 1.35rem;
+            }
+
+            .empty-state-lahan p {
+                font-size: 0.95rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .detail-hero-title {
                 font-size: 2rem;
