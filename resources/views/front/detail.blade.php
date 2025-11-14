@@ -355,6 +355,13 @@
             padding: 0 5rem;
         }
 
+        /* Responsive container untuk 720p */
+        @media (min-width: 1280px) and (max-width: 1366px) {
+            .other-lahan-modern .container {
+                padding: 0 2rem;
+            }
+        }
+
         /* Responsive container untuk layar besar */
         @media (min-width: 1440px) {
             .container {
@@ -837,6 +844,38 @@
             .data-grid-modern {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
                 gap: 2.5rem;
+            }
+        }
+
+        /* Responsive untuk 720p (1280px) - tetap 4 card per baris */
+        @media (min-width: 1280px) and (max-width: 1366px) {
+            .data-grid-modern {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.5rem;
+            }
+
+            .card-modern {
+                min-width: 0;
+            }
+
+            .card-image-wrapper {
+                height: 200px;
+            }
+
+            .card-content-modern {
+                padding: 1.25rem;
+            }
+
+            .card-title-modern {
+                font-size: 1.15rem;
+            }
+
+            .card-info-item {
+                font-size: 0.85rem;
+            }
+
+            .card-action {
+                font-size: 0.9rem;
             }
         }
 
