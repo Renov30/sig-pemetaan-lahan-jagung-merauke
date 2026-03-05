@@ -8,20 +8,49 @@ use Illuminate\Support\Facades\DB;
 
 class ProduksiKuartal extends ChartWidget
 {
-    protected static ?string $heading = 'Jumlah Produksi Per Kuartal';
     protected static ?int $sort = 3;
     protected int | string | array $columnSpan = 'full';
 
     protected static bool $isLazy = false;
 
+    public function getHeading(): string
+    {
+        // Ambil 3 tahun terakhir berdasarkan data yang ada di database
+        $tahunDenganData = Produksi::select(DB::raw('DISTINCT YEAR(tanggal_produksi) as tahun'))
+            ->orderBy('tahun', 'desc')
+            ->limit(3)
+            ->pluck('tahun')
+            ->sort()
+            ->values()
+            ->toArray();
+
+        if (empty($tahunDenganData)) {
+            return 'Jumlah Produksi Per Kuartal';
+        }
+
+        $tahunText = implode(', ', $tahunDenganData);
+
+        return "Jumlah Produksi Per Kuartal — Tahun {$tahunText}";
+    }
+
     protected function getData(): array
     {
-        // Ambil data produksi per kuartal dan tahun
+        // Ambil 3 tahun terakhir berdasarkan data yang ada di database
+        $tahunList = Produksi::select(DB::raw('DISTINCT YEAR(tanggal_produksi) as tahun'))
+            ->orderBy('tahun', 'desc')
+            ->limit(3)
+            ->pluck('tahun')
+            ->sort()
+            ->values()
+            ->toArray();
+
+        // Ambil data produksi per kuartal dan tahun (3 tahun terakhir dari data)
         $data = Produksi::select(
             DB::raw('QUARTER(tanggal_produksi) as kuartal'),
             DB::raw('YEAR(tanggal_produksi) as tahun'),
             DB::raw('SUM(hasil_produksi) as total_produksi')
         )
+            ->whereIn(DB::raw('YEAR(tanggal_produksi)'), $tahunList)
             ->groupBy('tahun', 'kuartal')
             ->orderBy('tahun')
             ->orderBy('kuartal')
@@ -31,7 +60,7 @@ class ProduksiKuartal extends ChartWidget
         $labels = ['Q1', 'Q2', 'Q3', 'Q4'];
         $dataPerTahun = [];
 
-        // Ambil semua tahun yang ada
+        // Ambil tahun yang ada dari data
         $tahunList = $data->pluck('tahun')->unique();
 
         // Set default nilai 0 untuk setiap kuartal dalam setiap tahun
