@@ -1,6 +1,14 @@
     <!-- navbar start -->
     <nav class="navbar" id="nav">
-        <a href="{{ route('front.index') }}" class="navbar-logo">Peta<span>Jagung.</span></a>
+        <div class="navbar-brand">
+            <a href="{{ route('front.index') }}" class="navbar-brand-logo">
+                <img src="{{ asset('img/logo-dppkp-land.png') }}" alt="Logo DPPKP">
+            </a>
+            <div class="navbar-brand-text">
+                <a href="{{ route('front.index') }}" class="navbar-logo">Peta<span>Jagung.</span></a>
+                <p class="navbar-subtitle">Dinas Tanaman Pangan dan Holtikultura Papua Selatan</p>
+            </div>
+        </div>
         <div class="navbar-nav">
             <a href="{{ route('front.index') }}">Home</a>
             <a href="{{ route('front.index') }}#about">Tentang</a>
