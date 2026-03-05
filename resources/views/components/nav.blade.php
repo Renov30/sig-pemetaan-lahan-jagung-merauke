@@ -5,8 +5,10 @@
                 <img src="{{ asset('img/logo-dppkp-land.png') }}" alt="Logo DPPKP">
             </a>
             <div class="navbar-brand-text">
-                <a href="{{ route('front.index') }}" class="navbar-logo">Peta<span>Jagung.</span></a>
-                <p class="navbar-subtitle">Dinas Tanaman Pangan dan Holtikultura Papua Selatan</p>
+                <a href="{{ route('front.index') }}" class="navbar-logo">
+                    Peta<span>Jagung.</span>
+                    <p class="navbar-subtitle">Dinas Tanaman Pangan dan Holtikultura Papua Selatan</p>
+                </a>
             </div>
         </div>
         <div class="navbar-nav">
