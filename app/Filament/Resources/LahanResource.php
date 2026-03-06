@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 
 class LahanResource extends Resource
 {
@@ -125,6 +126,10 @@ class LahanResource extends Resource
                 TextColumn::make('latitude')
                     ->searchable()
                     ->sortable(),
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->label('Ekspor'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

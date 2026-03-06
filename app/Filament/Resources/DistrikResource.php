@@ -15,6 +15,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 
 class DistrikResource extends Resource
 {
@@ -81,6 +82,10 @@ class DistrikResource extends Resource
                 TextColumn::make('produktivitas')
                     ->sortable()
                     ->searchable(),
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->label('Ekspor'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

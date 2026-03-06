@@ -20,6 +20,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 
 class ProduksiResource extends Resource
 {
@@ -83,6 +84,10 @@ class ProduksiResource extends Resource
                     ->label('Hasil Produksi')
                     ->searchable()
                     ->sortable(),
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->label('Ekspor'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
