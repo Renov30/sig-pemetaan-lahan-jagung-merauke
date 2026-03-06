@@ -59,6 +59,12 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->plugin(FilamentSpatieRolesPermissionsPlugin::make());
+            ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
+            ->renderHook(
+                \Filament\View\PanelsRenderHook::BODY_END,
+                fn (): \Illuminate\Support\HtmlString => new \Illuminate\Support\HtmlString(
+                    '<script src="' . asset('js/admin-custom.js') . '"></script>'
+                ),
+            );
     }
 }

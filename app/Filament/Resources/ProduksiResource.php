@@ -87,7 +87,10 @@ class ProduksiResource extends Resource
             ])
             ->headerActions([
                 ExportAction::make()
-                    ->label('Ekspor'),
+                    ->label('Ekspor')
+                    ->color('gray')
+                    ->button()
+                    ->outlined(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
