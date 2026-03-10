@@ -308,21 +308,24 @@
             z-index: 2;
             max-width: 1200px;
             width: 100%;
-            padding: 4rem 2rem;
+            padding: 8rem 2rem 4rem 2rem;
+            /* Ditambah jarak atas */
             text-align: center;
         }
 
         /* Kurangi padding top saat window mengecil */
         @media (max-width: 1919px) {
             .detail-hero-content {
-                padding-top: 1rem;
+                padding-top: 5rem;
+                /* Ditambah jarak atas */
                 padding-bottom: 2rem;
             }
         }
 
         @media (max-width: 768px) {
             .detail-hero-content {
-                padding-top: 0.5rem;
+                padding-top: 3rem;
+                /* Ditambah jarak atas */
                 padding-bottom: 1.5rem;
             }
         }
@@ -1440,26 +1443,26 @@
 @endpush
 
 @push('after-scripts')
-                <script>
-                    var activeInfoWindow = null; 
+    <script>
+        var activeInfoWindow = null;
 
-                    function initMap() {
-                        var lahan = {
-                            name: "{{ $lahan->name }}",
-                            alamat: "{{ $lahan->alamat }}",
-                            slug: "{{ $lahan->slug }}",
-                            latitude: {{ $lahan->latitude }},
-                            longitude: {{ $lahan->longitude }}
-                        };
+        function initMap() {
+            var lahan = {
+                name: "{{ $lahan->name }}",
+                alamat: "{{ $lahan->alamat }}",
+                slug: "{{ $lahan->slug }}",
+                latitude: {{ $lahan->latitude }},
+                longitude: {{ $lahan->longitude }}
+            };
 
             var lokasi = {
                 lat: lahan.latitude,
                 lng: lahan.longitude
             };
 
-                        var map = new google.maps.Map(document.getElementById("map"), {
-                            zoom: 15,
-                            center: lokasi,
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: lokasi,
                 styles: [{
                     featureType: "poi",
                     elementType: "labels",
@@ -1467,45 +1470,45 @@
                         visibility: "off"
                     }]
                 }]
-                        });
+            });
 
-                        var marker = new google.maps.Marker({
-                            position: lokasi,
-                            map: map,
-                            title: lahan.name,
-                            icon: {
-                                url: "{{ asset('img/corn-cob.png') }}", 
+            var marker = new google.maps.Marker({
+                position: lokasi,
+                map: map,
+                title: lahan.name,
+                icon: {
+                    url: "{{ asset('img/corn-cob.png') }}",
                     scaledSize: new google.maps.Size(40, 40),
-                            } 
-                        });
-                        
-                        var contentString =
-                            '<div class="card-google-map">' +
-                                '<h5 class="card-title-google-map">' + lahan.name + '</h5>' +
-                                '<p class="card-text-google-map">' + lahan.alamat + '</p>' +
+                }
+            });
+
+            var contentString =
+                '<div class="card-google-map">' +
+                '<h5 class="card-title-google-map">' + lahan.name + '</h5>' +
+                '<p class="card-text-google-map">' + lahan.alamat + '</p>' +
                 '<a href="https://www.google.com/maps?q=' + lahan.latitude + ',' + lahan.longitude +
                 '" target="_blank" class="card-button-google-map">Lihat di Google Maps</a>' +
-                            '</div>';
+                '</div>';
 
-                        var infowindow = new google.maps.InfoWindow({
-                            content: contentString
-                        });
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
 
-                        marker.addListener('click', function() {
-                            if (activeInfoWindow) {
-                                activeInfoWindow.close();
-                            }
-                            infowindow.open(map, marker);
-                            activeInfoWindow = infowindow;
-                        });
+            marker.addListener('click', function() {
+                if (activeInfoWindow) {
+                    activeInfoWindow.close();
+                }
+                infowindow.open(map, marker);
+                activeInfoWindow = infowindow;
+            });
 
-                        google.maps.event.addListener(map, 'click', function() {
-                            if (activeInfoWindow) {
-                                activeInfoWindow.close();
-                                activeInfoWindow = null;
-                            }
-                        });
-                    }
+            google.maps.event.addListener(map, 'click', function() {
+                if (activeInfoWindow) {
+                    activeInfoWindow.close();
+                    activeInfoWindow = null;
+                }
+            });
+        }
 
         function toggleGallery() {
             const gallery = document.getElementById('gallery');
@@ -1540,7 +1543,7 @@
         // Scroll Animation dengan Intersection Observer
         document.addEventListener('DOMContentLoaded', function() {
             const animatedElements = document.querySelectorAll('.scroll-animate');
-            
+
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
