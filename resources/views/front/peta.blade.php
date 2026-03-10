@@ -113,21 +113,24 @@
             z-index: 2;
             max-width: 1200px;
             width: 100%;
-            padding: 4rem 2rem;
+            padding: 8rem 2rem 4rem 2rem;
+            /* Ditambah jarak atas */
             text-align: center;
         }
 
         /* Kurangi padding top saat window mengecil */
         @media (max-width: 1919px) {
             .peta-hero-content {
-                padding-top: 1rem;
+                padding-top: 5rem;
+                /* Ditambah jarak atas */
                 padding-bottom: 2rem;
             }
         }
 
         @media (max-width: 768px) {
             .peta-hero-content {
-                padding-top: 0.5rem;
+                padding-top: 3rem;
+                /* Ditambah jarak atas */
                 padding-bottom: 1.5rem;
             }
         }
