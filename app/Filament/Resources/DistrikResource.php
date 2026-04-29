@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Exports\DistrikExport;
 use App\Filament\Resources\DistrikResource\Pages;
 use App\Filament\Resources\DistrikResource\RelationManagers;
 use App\Models\Distrik;
@@ -88,7 +89,10 @@ class DistrikResource extends Resource
                     ->label('Ekspor')
                     ->color('gray')
                     ->button()
-                    ->outlined(),
+                    ->outlined()
+                    ->exports([
+                        DistrikExport::make()->fromTable(),
+                    ]),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -102,7 +106,10 @@ class DistrikResource extends Resource
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                     ExportBulkAction::make()
-                        ->label('Ekspor Data'),
+                        ->label('Ekspor Data')
+                        ->exports([
+                            DistrikExport::make()->fromTable(),
+                        ]),
                 ]),
             ]);
     }

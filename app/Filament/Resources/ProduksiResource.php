@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Exports\ProduksiExport;
 use App\Filament\Resources\ProduksiResource\Pages;
 use App\Filament\Resources\ProduksiResource\RelationManagers;
 use App\Models\Produksi;
@@ -90,7 +91,10 @@ class ProduksiResource extends Resource
                     ->label('Ekspor')
                     ->color('gray')
                     ->button()
-                    ->outlined(),
+                    ->outlined()
+                    ->exports([
+                        ProduksiExport::make()->fromTable(),
+                    ]),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -104,7 +108,10 @@ class ProduksiResource extends Resource
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                     ExportBulkAction::make()
-                        ->label('Ekspor Data'),
+                        ->label('Ekspor Data')
+                        ->exports([
+                            ProduksiExport::make()->fromTable(),
+                        ]),
                 ]),
             ]);
     }

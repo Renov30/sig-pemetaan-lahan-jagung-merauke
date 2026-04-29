@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Exports\LahanExport;
 use App\Filament\Resources\LahanResource\Pages;
 use App\Filament\Resources\LahanResource\RelationManagers;
 use App\Models\Lahan;
@@ -132,7 +133,10 @@ class LahanResource extends Resource
                     ->label('Ekspor')
                     ->color('gray')
                     ->button()
-                    ->outlined(),
+                    ->outlined()
+                    ->exports([
+                        LahanExport::make()->fromTable(),
+                    ]),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -146,7 +150,10 @@ class LahanResource extends Resource
                     Tables\Actions\ForceDeleteBulkAction::make(),
                     Tables\Actions\RestoreBulkAction::make(),
                     ExportBulkAction::make()
-                        ->label('Ekspor Data'),
+                        ->label('Ekspor Data')
+                        ->exports([
+                            LahanExport::make()->fromTable(),
+                        ]),
                 ]),
             ]);
     }
