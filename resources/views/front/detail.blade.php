@@ -891,7 +891,7 @@
 
         @media (min-width: 1920px) {
             .data-grid-modern {
-                grid-template-columns: repeat(5, 1fr);
+                grid-template-columns: repeat(4, 1fr);
                 gap: 3rem;
                 max-width: 1600px;
                 margin-left: auto;
@@ -901,9 +901,11 @@
 
         @media (min-width: 2560px) {
             .data-grid-modern {
-                grid-template-columns: repeat(6, 1fr);
+                grid-template-columns: repeat(4, 1fr);
                 gap: 3rem;
                 max-width: 2000px;
+                margin-left: auto;
+                margin-right: auto;
             }
         }
 
